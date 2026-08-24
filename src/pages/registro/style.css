@@ -1,28 +1,37 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 
+
 /* =========================
-   DUOPROG REGISTRO
+   CONTENEDOR REGISTRO
 ========================= */
 
 
-.registro {
-
-    width: 420px;
-
-    padding: 35px;
+.registro-container {
 
 
-    background: #1D2633;
+    min-height: 100vh;
 
 
-    border-radius: 25px;
+    width: 100%;
 
 
-    box-shadow: 0 15px 40px rgba(0,0,0,0.35);
+    display: flex;
 
 
-    color: #F4F7F8;
+    justify-content: center;
+
+
+    align-items: center;
+
+
+    padding: 30px 15px;
+
+
+    box-sizing: border-box;
+
+
+    background: #10151C;
 
 
     font-family: 'Inter', sans-serif;
@@ -32,26 +41,86 @@
 
 
 
+
+
+/* =========================
+   TARJETA
+========================= */
+
+
+.registro {
+
+
+    width: 400px;
+
+
+    max-width: 100%;
+
+
+    box-sizing: border-box;
+
+
+    padding: 30px;
+
+
+
+    background: #1D2633;
+
+
+
+    border-radius: 25px;
+
+
+
+    border: 1px solid #273548;
+
+
+
+    box-shadow:
+
+    0 10px 30px rgba(0,0,0,0.35);
+
+
+
+    color: #F4F7F8;
+
+
+}
+
+
+
+
+
+
 /* TITULO */
 
 
 .registro h1 {
 
+
     text-align: center;
 
 
-    font-size: 30px;
+
+    font-size: 28px;
+
 
 
     font-weight: 800;
 
 
-    margin-bottom: 25px;
+
+    margin: 0 0 25px;
+
 
 
     color: #F4F7F8;
 
+
 }
+
+
+
 
 
 
@@ -60,13 +129,19 @@
 
 .registro form {
 
+
     display: flex;
+
 
     flex-direction: column;
 
+
     gap: 12px;
 
+
 }
+
+
 
 
 
@@ -75,7 +150,8 @@
 
 .registro label {
 
-    color: #20DFF5;
+
+    color: #7181ff;
 
 
     font-size: 14px;
@@ -83,7 +159,11 @@
 
     font-weight: 600;
 
+
 }
+
+
+
 
 
 
@@ -93,19 +173,31 @@
 .registro input {
 
 
-    padding: 15px;
+    width: 100%;
+
+
+    box-sizing: border-box;
+
+
+
+    padding: 14px;
+
 
 
     border-radius: 15px;
 
 
+
     border: 2px solid #334155;
+
 
 
     background: #10151C;
 
 
+
     color: #F4F7F8;
+
 
 
     font-size: 16px;
@@ -115,23 +207,32 @@
 
 
 
+
+
 .registro input:focus {
 
 
     outline: none;
 
 
+
     border-color: #20DFF5;
 
 
-    box-shadow: 0 0 10px rgba(32,223,245,0.35);
+
+    box-shadow:
+
+    0 0 10px rgba(32,223,245,0.35);
 
 
 }
 
 
 
-/* BOTÓN */
+
+
+
+/* BOTON */
 
 
 .registro button {
@@ -140,28 +241,37 @@
     margin-top: 15px;
 
 
-    padding: 15px;
+
+    padding: 14px;
+
 
 
     border: none;
 
 
+
     border-radius: 18px;
+
 
 
     background: #2778FF;
 
 
+
     color: white;
 
 
-    font-size: 17px;
+
+    font-size: 16px;
+
 
 
     font-weight: bold;
 
 
+
     cursor: pointer;
+
 
 
     transition: .2s;
@@ -171,13 +281,17 @@
 
 
 
+
+
 .registro button:hover {
 
 
     background: #20DFF5;
 
 
+
     color: #10151C;
+
 
 
     transform: translateY(-2px);
@@ -187,22 +301,175 @@
 
 
 
+
+
+
 /* MENSAJE */
 
 
 #mensajeRegistro {
 
 
-    margin-top: 20px;
+    margin-top: 18px;
+
 
 
     text-align: center;
 
 
+
     color: #20DFF5;
 
 
+
     font-weight: 600;
+
+
+}
+
+
+
+
+
+
+/* =========================
+   TABLET
+========================= */
+
+
+@media(max-width:768px){
+
+
+    .registro {
+
+
+        width: 380px;
+
+
+        padding: 28px;
+
+
+    }
+
+
+}
+
+
+
+
+
+
+/* =========================
+   CELULAR
+========================= */
+
+
+@media(max-width:480px){
+
+
+    .registro-container {
+
+
+        padding: 20px 15px;
+
+
+    }
+
+
+
+
+
+    .registro {
+
+
+        width: 100%;
+
+
+        padding: 22px;
+
+
+        border-radius: 20px;
+
+
+    }
+
+
+
+
+
+    .registro h1 {
+
+
+        font-size: 23px;
+
+
+    }
+
+
+
+
+
+    .registro input {
+
+
+        padding: 13px;
+
+
+        font-size: 15px;
+
+
+    }
+
+
+
+
+
+    .registro button {
+
+
+        padding: 13px;
+
+
+        font-size: 15px;
+
+
+    }
+
+
+}
+
+
+
+
+
+
+/* =========================
+   CELULAR PEQUEÑO
+========================= */
+
+
+@media(max-width:360px){
+
+
+    .registro {
+
+
+        padding: 18px;
+
+
+    }
+
+
+
+
+
+    .registro h1 {
+
+
+        font-size: 21px;
+
+
+    }
 
 
 }

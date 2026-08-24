@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap');
 
 
 /* =========================================================
@@ -8,34 +8,34 @@
 
 .navbar {
 
-    width: 100%;
+    width:100%;
 
-    height: 75px;
+    height:75px;
 
+    background:#161D27;
 
-    background: #1D2633;
+    display:flex;
 
+    align-items:center;
 
-    display: flex;
+    justify-content:space-between;
 
-    align-items: center;
+    padding:0 40px;
 
-    justify-content: space-between;
+    box-sizing:border-box;
 
+    box-shadow:
+    0 8px 25px rgba(0,0,0,.25);
 
-    padding: 0 40px;
+    font-family:'Fredoka',sans-serif;
 
+    position:relative;
 
-    box-sizing: border-box;
-
-
-    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-
-
-    font-family: 'Inter', sans-serif;
-
+    z-index:999;
 
 }
+
+
 
 
 
@@ -46,25 +46,29 @@
 
 .navbar-logo h2 {
 
+    margin:0;
 
-    margin: 0;
+    color:#F4F7F8;
 
+    font-size:28px;
 
-    color: #20DFF5;
+    font-weight:800;
 
-
-    font-size: 28px;
-
-
-    font-weight: 800;
-
-
-    letter-spacing: 1px;
-
-
-    cursor: default;
+    letter-spacing:1px;
 
 }
+
+
+
+.navbar-logo h2::first-letter {
+
+    color:#2778FF;
+
+}
+
+
+
+
 
 
 
@@ -75,115 +79,192 @@
 
 .navbar-links {
 
+    display:flex;
 
-    display: flex;
+    align-items:center;
 
-
-    align-items: center;
-
-
-    gap: 12px;
-
+    gap:12px;
 
 }
 
 
 
+
+
+
+
+
+
 /* =========================================================
-   BUTTONS
+   BOTONES
 ========================================================= */
 
 
 .navbar-links button {
 
 
-    padding: 11px 18px;
+    position:relative;
 
 
-    border-radius: 14px;
+    padding:10px 18px;
 
 
-    border: none;
+    border-radius:14px;
 
 
-    background: transparent;
+    border:1px solid rgba(244,247,248,.25);
 
 
-    color: #F4F7F8;
+
+    background:rgba(244,247,248,.05);
 
 
-    font-family: inherit;
+
+    color:#F4F7F8;
 
 
-    font-size: 15px;
+    font-family:inherit;
 
 
-    font-weight: 600;
+    font-size:15px;
 
 
-    cursor: pointer;
+    font-weight:600;
 
 
-    transition: .2s;
+
+    cursor:pointer;
+
+
+
+    box-shadow:
+
+
+    0 4px 0 rgba(244,247,248,.12),
+
+
+    0 8px 18px rgba(0,0,0,.25);
+
+
+
+    transition:.15s ease;
 
 
 }
+
+
 
 
 
 .navbar-links button:hover {
 
 
-    background: #2778FF;
+    border-color:#F4F7F8;
 
 
-    transform: translateY(-2px);
+
+    background:rgba(244,247,248,.12);
+
+
+
+    transform:translateY(-3px);
+
+
+
+    box-shadow:
+
+
+    0 7px 0 rgba(244,247,248,.18),
+
+
+    0 14px 25px rgba(0,0,0,.35);
+
 
 
 }
 
 
 
+
+
+.navbar-links button:active {
+
+
+    transform:translateY(3px);
+
+
+
+    box-shadow:
+
+
+    0 2px 0 rgba(244,247,248,.15),
+
+
+    0 5px 12px rgba(0,0,0,.25);
+
+
+}
+
+
+
+
+
+
+
+
+
 /* =========================================================
-   LOGIN BUTTON
+   BOTON ACTIVO
 ========================================================= */
 
 
-#btnNavLogin {
+.navbar-links button.active {
 
 
-    background: #2778FF;
+    background:#F4F7F8;
 
 
-    color: white;
+    color:#10151C;
+
+
+    border-color:#F4F7F8;
+
+
+
+    transform:translateY(-3px);
+
+
+
+    box-shadow:
+
+
+    0 7px 0 #BFC3C7,
+
+
+    0 15px 25px rgba(0,0,0,.35);
+
 
 
 }
 
 
 
-#btnNavLogin:hover {
 
 
-    background: #20DFF5;
 
-
-    color: #10151C;
-
-
-}
 
 
 
 /* =========================================================
-   USER BUTTON
+   USUARIO
 ========================================================= */
 
 
 #btnUsuario {
 
 
-    border: 1px solid #20DFF5;
+    border:1px solid rgba(244,247,248,.45);
+
 
 
 }
@@ -193,77 +274,383 @@
 #btnUsuario:hover {
 
 
-    background: #20DFF5;
+    background:#F4F7F8;
 
 
-    color: #10151C;
+    color:#10151C;
+
 
 
 }
 
 
 
+
+
+
+
+
+
 /* =========================================================
-   MOBILE
+   LOGIN
 ========================================================= */
 
 
-@media (max-width: 700px) {
+#btnNavLogin {
+
+
+    background:#2778FF;
+
+
+    border-color:#2778FF;
+
+
+    color:white;
+
+
+
+    box-shadow:
+
+
+    0 5px 0 #1854B8,
+
+
+    0 10px 20px rgba(0,0,0,.3);
+
+
+
+}
+
+
+
+
+#btnNavLogin:hover {
+
+
+    background:#20DFF5;
+
+
+    color:#10151C;
+
+
+
+    box-shadow:
+
+
+    0 7px 0 #13A9BD,
+
+
+    0 15px 25px rgba(0,0,0,.35);
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   MENU HAMBURGUESA
+========================================================= */
+
+
+.menu-toggle {
+
+
+    display:none;
+
+
+    width:42px;
+
+
+    height:42px;
+
+
+    border-radius:50%;
+
+
+
+    border:1px solid rgba(244,247,248,.35);
+
+
+
+    background:rgba(244,247,248,.08);
+
+
+
+    cursor:pointer;
+
+
+
+    align-items:center;
+
+
+    justify-content:center;
+
+
+    flex-direction:column;
+
+
+    gap:4px;
+
+
+
+    transition:.25s;
+
+
+
+    box-shadow:
+
+
+    0 5px 0 rgba(244,247,248,.12);
+
+
+}
+
+
+
+
+.menu-toggle:hover {
+
+
+    background:rgba(244,247,248,.18);
+
+
+    transform:scale(1.05);
+
+
+}
+
+
+
+
+
+.menu-toggle:active {
+
+
+    transform:translateY(3px);
+
+
+    box-shadow:none;
+
+
+}
+
+
+
+
+
+.menu-toggle span {
+
+
+    width:17px;
+
+
+    height:1.5px;
+
+
+
+    background:#F4F7F8;
+
+
+    border-radius:10px;
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   CERRAR SESION
+========================================================= */
+
+
+#btnCerrarSesion {
+
+
+    border-color:#8B1E3F;
+
+
+
+    box-shadow:
+
+
+    0 5px 0 #5C142B,
+
+
+    0 10px 20px rgba(0,0,0,.3);
+
+
+
+}
+
+
+
+#btnCerrarSesion:hover {
+
+
+    background:#8B1E3F;
+
+
+    color:white;
+
+
+
+}
+
+
+
+
+
+
+
+
+
+/* =========================================================
+   MOVIL
+========================================================= */
+
+
+@media(max-width:700px){
 
 
 
     .navbar {
 
 
-        height: auto;
+        height:75px;
 
 
-        flex-direction: column;
+        padding:0 20px;
 
-
-        gap: 20px;
-
-
-        padding: 20px;
 
 
     }
+
+
+
+
 
 
 
     .navbar-logo h2 {
 
 
-        font-size: 24px;
+        font-size:24px;
+
 
 
     }
+
+
+
+
+
+
+
+    .menu-toggle {
+
+
+        display:flex;
+
+
+
+    }
+
+
+
+
+
+
 
 
 
     .navbar-links {
 
 
-        width: 100%;
+        position:absolute;
 
 
-        justify-content: center;
+        top:75px;
 
 
-        flex-wrap: wrap;
+        left:0;
+
+
+        width:100%;
+
+
+
+        background:#161D27;
+
+
+
+        display:none;
+
+
+        flex-direction:column;
+
+
+        gap:12px;
+
+
+
+        padding:20px;
+
+
+
+        box-sizing:border-box;
+
+
+
+        box-shadow:
+
+
+        0 10px 30px rgba(0,0,0,.3);
+
 
 
     }
 
 
 
+
+
+
+
+
+    .navbar-links.show {
+
+
+        display:flex;
+
+
+
+    }
+
+
+
+
+
+
+
+
     .navbar-links button {
 
 
-        font-size: 14px;
+        width:100%;
 
-
-        padding: 10px 14px;
 
 
     }

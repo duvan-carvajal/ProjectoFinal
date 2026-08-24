@@ -1,18 +1,26 @@
 import { auth, db } from '../../firebaseConfig.js';
 import { doc, getDoc } from 'firebase/firestore';
+import cloud from '../../../assets/images/cloud.svg';
 import './style.css';
+
 
 export default async function mostrarInicio() {
 
+
     const app = document.getElementById("app");
 
+
     if (!app) {
+
         console.error("❌ No se encontró #app");
+
         return;
+
     }
 
 
     const usuario = auth.currentUser;
+
 
 
     if (!usuario) {
@@ -20,15 +28,30 @@ export default async function mostrarInicio() {
         window.location.hash = "#login";
 
         return;
-    }
 
+    }
 
 
     app.innerHTML = `
 
+        <img src="${cloud}" class="cloud cloud-1">
+
+        <img src="${cloud}" class="cloud cloud-2">
+
+
         <div class="inicio">
 
-            <h1>Cargando...</h1>
+
+            <section class="welcome-card">
+
+
+                <h1>
+                    Cargando...
+                </h1>
+
+
+            </section>
+
 
         </div>
 
@@ -58,6 +81,7 @@ export default async function mostrarInicio() {
 
 
             const datos = usuarioSnap.data();
+
 
 
             if (datos.nombre) {
@@ -94,6 +118,7 @@ export default async function mostrarInicio() {
 
             xp = progreso.xp || 0;
 
+
         }
 
 
@@ -103,18 +128,53 @@ export default async function mostrarInicio() {
         app.innerHTML = `
 
 
+            <img src="${cloud}" class="cloud cloud-1">
+
+
+            <img src="${cloud}" class="cloud cloud-2">
+
+            
+            <div class="stars">
+
+                <span>✦</span>
+                <span>✧</span>
+                <span>✦</span>
+                <span>✧</span>
+                <span>✦</span>
+
+            </div>
+
+
             <div class="inicio">
 
 
-                <h1>
-                    ¡Hola, ${nombre}! 👋
-                </h1>
+
+                <section class="welcome-card">
+
+
+                    <h1>
+                        ¡Hola, ${nombre}! 👋
+                    </h1>
 
 
 
-                <p>
-                    Continúa aprendiendo donde lo dejaste.
-                </p>
+                    <p>
+                        Continúa aprendiendo donde lo dejaste.
+                    </p>
+
+
+
+                    <div class="xp-mini">
+
+                        ⭐ ${xp} XP
+
+                    </div>
+
+
+
+                </section>
+
+
 
 
 
@@ -129,12 +189,15 @@ export default async function mostrarInicio() {
 
 
 
+
                     <div class="curso-card">
 
 
 
                         <div class="curso-icon">
+
                             🐍
+
                         </div>
 
 
@@ -151,16 +214,16 @@ export default async function mostrarInicio() {
 
 
                             <p>
-                                Aprende los fundamentos
-                                de Python.
+                                Aprende los fundamentos de Python.
                             </p>
 
 
 
 
                             <button 
+                                id="btnPython"
                                 class="curso-btn"
-                                id="btnPython">
+                            >
 
                                 CONTINUAR
 
@@ -177,30 +240,6 @@ export default async function mostrarInicio() {
 
 
 
-                </section>
-
-
-
-
-
-
-                <section class="xp-section">
-
-
-
-                    <h2>
-                        Tu progreso
-                    </h2>
-
-
-
-
-                    <p>
-                        ⭐ ${xp} XP
-                    </p>
-
-
-
 
                 </section>
 
@@ -211,9 +250,7 @@ export default async function mostrarInicio() {
             </div>
 
 
-
         `;
-
 
 
 
@@ -224,7 +261,7 @@ export default async function mostrarInicio() {
             .addEventListener("click", () => {
 
 
-                window.location.hash = "#python";
+                window.location.href = "index.html";
 
 
             });
@@ -233,17 +270,13 @@ export default async function mostrarInicio() {
 
 
 
-
-
-    } catch (error) {
-
+    } catch(error) {
 
 
         console.error(
-            "❌ Error cargando el inicio:",
+            "❌ Error cargando inicio:",
             error
         );
-
 
 
 
@@ -253,28 +286,29 @@ export default async function mostrarInicio() {
             <div class="inicio">
 
 
-
-                <h1>
-                    ¡Hola! 👋
-                </h1>
+                <section class="welcome-card">
 
 
+                    <h1>
+                        ¡Hola! 👋
+                    </h1>
 
 
-                <p>
-                    No pudimos cargar tu progreso.
-                </p>
+                    <p>
+                        No pudimos cargar tu progreso.
+                    </p>
 
 
+                </section>
 
 
             </div>
-
 
 
         `;
 
 
     }
+
 
 }
