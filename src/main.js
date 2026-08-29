@@ -55,8 +55,8 @@ onAuthStateChanged(auth, async (usuario) => {
 
     console.log(
         usuario
-            ? `👤 Usuario conectado: ${usuario.uid}`
-            : "🚪 No hay usuario conectado"
+            ? `Usuario conectado: ${usuario.uid}`
+            : "No hay usuario conectado"
     );
 
     await mostrarPagina(usuario);

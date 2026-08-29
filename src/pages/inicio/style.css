@@ -1,0 +1,759 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+
+/* =========================================================
+   DECORACIONES
+========================================================= */
+
+
+.cloud {
+
+    position: fixed;
+
+    width: 220px;
+
+    opacity: 0.18;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    filter: blur(1px);
+
+    animation: floatCloud 8s ease-in-out infinite;
+
+}
+
+
+
+.cloud-1 {
+
+    top:120px;
+
+    left:40px;
+
+}
+
+
+
+.cloud-2 {
+
+    bottom:100px;
+
+    right:60px;
+
+}
+
+
+
+@keyframes floatCloud {
+
+
+    0%,100% {
+
+        transform:translateY(0);
+
+    }
+
+
+    50% {
+
+        transform:translateY(-15px);
+
+    }
+
+
+}
+
+
+
+
+/* =========================================================
+   ESTRELLITAS
+========================================================= */
+
+
+.stars {
+
+    position: fixed;
+
+    inset: 0;
+
+    pointer-events: none;
+
+    z-index: 0;
+
+    overflow: hidden;
+
+}
+
+
+
+.stars span {
+
+    position: absolute;
+
+    color: #F4D35E;
+
+    opacity: .45;
+
+    font-size: 22px;
+
+    filter: drop-shadow(0 0 8px rgba(244,211,94,.5));
+
+    animation: twinkle 4s infinite ease-in-out;
+
+}
+
+
+
+
+.stars span:nth-child(1){
+
+    top:18%;
+
+    left:18%;
+
+    font-size:28px;
+
+}
+
+
+
+
+.stars span:nth-child(2){
+
+    top:35%;
+
+    right:15%;
+
+    font-size:18px;
+
+    animation-delay:1s;
+
+}
+
+
+
+
+.stars span:nth-child(3){
+
+    bottom:25%;
+
+    left:12%;
+
+    font-size:24px;
+
+    animation-delay:2s;
+
+}
+
+
+
+
+.stars span:nth-child(4){
+
+    top:70%;
+
+    right:35%;
+
+    font-size:20px;
+
+    animation-delay:.5s;
+
+}
+
+
+
+
+.stars span:nth-child(5){
+
+    top:25%;
+
+    right:45%;
+
+    font-size:30px;
+
+    animation-delay:1.5s;
+
+}
+
+
+
+
+@keyframes twinkle {
+
+
+    0%,100% {
+
+        opacity:.25;
+
+        transform:scale(1);
+
+    }
+
+
+
+    50% {
+
+        opacity:.8;
+
+        transform:scale(1.25);
+
+    }
+
+
+}
+
+
+
+/* =========================================================
+   FONDO EXTRA TIPO NUBE
+========================================================= */
+
+
+.inicio::before {
+
+    content:"";
+
+    position:fixed;
+
+    width:900px;
+
+    height:500px;
+
+    background:#24364D;
+
+    opacity:.35;
+
+    border-radius:50%;
+
+    top:-250px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    z-index:-1;
+
+    filter:blur(80px);
+
+}
+
+
+
+.inicio::after {
+
+    content:"";
+
+    position:fixed;
+
+    width:700px;
+
+    height:350px;
+
+    background:#10151C;
+
+    border-radius:50%;
+
+    bottom:-180px;
+
+    left:50%;
+
+    transform:translateX(-50%);
+
+    z-index:-1;
+
+    filter:blur(60px);
+
+}
+
+
+
+
+
+/* =========================================================
+   HOME CONTENEDOR
+========================================================= */
+
+
+.inicio {
+
+    position:relative;
+
+    z-index:1;
+
+    width:90%;
+
+    max-width:900px;
+
+    margin:0 auto;
+
+    padding:40px 25px 100px;
+
+    box-sizing:border-box;
+
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    gap:30px;
+
+
+    font-family:'Inter',sans-serif;
+
+}
+
+
+
+
+
+/* =========================================================
+   TARJETA BIENVENIDA
+========================================================= */
+
+
+.welcome-card {
+
+
+    width:100%;
+
+
+    padding:35px;
+
+
+    box-sizing:border-box;
+
+
+    background:rgba(29,38,51,0);
+
+
+    backdrop-filter:blur(18px);
+
+
+    border-radius:30px;
+
+
+    border:1px solid rgba(244,247,248,.12);
+
+
+
+    box-shadow:
+
+    0 20px 50px rgba(0,0,0,.35);
+
+
+}
+
+
+
+.welcome-card h1 {
+
+
+    margin:0 0 10px;
+
+
+    color:#F4F7F8;
+
+
+    font-size:32px;
+
+
+    font-weight:800;
+
+
+}
+
+
+
+.welcome-card p {
+
+
+    margin:0;
+
+
+    color:#AAB7C8;
+
+
+}
+
+
+
+
+
+.xp-mini {
+
+
+    margin-top:20px;
+
+
+    display:inline-flex;
+
+
+    align-items:center;
+
+
+    padding:10px 18px;
+
+
+    border-radius:20px;
+
+
+    background:rgba(16,21,28,.8);
+
+
+    border:1px solid rgba(244,247,248,.08);
+
+
+    color:#F4D35E;
+
+
+    font-weight:700;
+
+
+}
+
+
+
+
+
+
+
+/* =========================================================
+   CURSOS
+========================================================= */
+
+
+.mis-cursos {
+
+
+    width:100%;
+
+
+}
+
+
+
+.mis-cursos h2 {
+
+
+    color:#F4F7F8;
+
+
+    font-size:22px;
+
+
+    margin:0 0 15px;
+
+
+}
+
+
+
+
+
+.curso-card {
+
+
+    width:100%;
+
+
+    display:flex;
+
+
+    align-items:center;
+
+
+    gap:20px;
+
+
+    padding:25px;
+
+
+    box-sizing:border-box;
+
+
+
+    background:rgba(29,38,51,0);
+
+
+    backdrop-filter:blur(18px);
+
+
+
+    border-radius:28px;
+
+
+
+    border:1px solid rgba(244,247,248,.12);
+
+
+
+    box-shadow:
+
+    0 20px 50px rgba(0,0,0,.35);
+
+
+}
+
+
+
+
+
+
+
+.curso-icon {
+
+
+    flex-shrink:0;
+
+
+    width:80px;
+
+
+    height:80px;
+
+
+    display:flex;
+
+
+    justify-content:center;
+
+
+    align-items:center;
+
+
+    background:rgba(16,21,28,.85);
+
+
+    border-radius:22px;
+
+
+    font-size:40px;
+
+
+}
+
+
+
+
+
+
+
+.curso-info {
+
+
+    min-width:0;
+
+
+}
+
+
+
+.curso-info h3 {
+
+
+    color:#F4F7F8;
+
+
+    margin:0 0 8px;
+
+
+}
+
+
+
+.curso-info p {
+
+
+    color:#AAB7C8;
+
+
+    margin:0 0 15px;
+
+
+}
+
+
+
+
+
+
+
+/* =========================================================
+   BOTON
+========================================================= */
+
+
+.curso-btn {
+
+
+    position:relative;
+
+
+    padding:12px 25px;
+
+
+    border:none;
+
+
+    border-radius:15px;
+
+
+
+    background:#F4D35E;
+
+
+    color:#10151C;
+
+
+
+    font-weight:800;
+
+
+    cursor:pointer;
+
+
+
+    transform:translateY(0);
+
+
+
+    box-shadow:
+
+    0 7px 0 #C9A93A,
+
+    0 12px 25px rgba(0,0,0,.35);
+
+
+
+    transition:.15s ease;
+
+
+
+}
+
+
+
+.curso-btn:hover {
+
+
+    transform:translateY(-3px);
+
+
+    background:#FFE88A;
+
+
+}
+
+
+
+
+
+
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+
+@media(max-width:768px){
+
+
+    .inicio {
+
+        padding:35px 20px 80px;
+
+    }
+
+
+    .welcome-card {
+
+        padding:25px;
+
+    }
+
+
+    .welcome-card h1 {
+
+        font-size:28px;
+
+    }
+
+
+    .curso-card {
+
+        padding:20px;
+
+    }
+
+
+}
+
+
+
+
+
+@media(max-width:480px){
+
+
+
+    .cloud {
+
+        width:130px;
+
+    }
+
+
+
+    .inicio {
+
+        width:100%;
+
+        padding:25px 15px 60px;
+
+    }
+
+
+
+    .welcome-card {
+
+        padding:22px;
+
+        border-radius:22px;
+
+    }
+
+
+
+    .welcome-card h1 {
+
+        font-size:23px;
+
+    }
+
+
+
+    .curso-card {
+
+        flex-direction:column;
+
+        text-align:center;
+
+    }
+
+
+
+    .curso-btn {
+
+        width:100%;
+
+    }
+
+
+
+}

@@ -1,198 +1,668 @@
-import { signOut, deleteUser } from 'firebase/auth';
+import { signOut, deleteUser, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
 import { doc, getDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebaseConfig.js';
+import cloud from '../../../assets/images/cloud.svg';
+import './style.css';
+
 
 export default async function mostrarUsuario() {
+
 
     const app = document.getElementById("app");
     const user = auth.currentUser;
 
+
+
+    const decoraciones = `
+
+        <img src="${cloud}" class="cloud cloud-1">
+
+        <img src="${cloud}" class="cloud cloud-2">
+
+
+        <div class="stars">
+
+            <span>✦</span>
+            <span>✧</span>
+            <span>✦</span>
+            <span>✧</span>
+            <span>✦</span>
+
+        </div>
+
+    `;
+
+
+
     if (!user) {
+
+
         app.innerHTML = `
-            <div>
-                <h2>No has iniciado sesión</h2>
-                <p>Debes iniciar sesión para ver tu información.</p>
+
+            ${decoraciones}
+
+
+            <div class="inicio">
+
+
+                <div class="user-card">
+
+
+                    <h2>
+                        No has iniciado sesión
+                    </h2>
+
+
+                    <p>
+                        Debes iniciar sesión para ver tu información.
+                    </p>
+
+
+                </div>
+
+
             </div>
+
         `;
 
+
         return;
+
     }
 
-    const usuarioRef = doc(db, "usuarios", user.uid);
+
+
+
+    const usuarioRef = doc(
+        db,
+        "usuarios",
+        user.uid
+    );
+
+
 
     try {
 
+
         const usuarioSnap = await getDoc(usuarioRef);
 
+
+
         if (!usuarioSnap.exists()) {
+
+
             app.innerHTML = `
-                <div>
-                    <h2>Usuario</h2>
-                    <p>No se encontraron los datos de tu perfil.</p>
+
+
+                ${decoraciones}
+
+
+                <div class="inicio">
+
+
+                    <div class="user-card">
+
+
+                        <h2>
+                            Usuario
+                        </h2>
+
+
+                        <p>
+                            No se encontraron los datos de tu perfil.
+                        </p>
+
+
+                    </div>
+
+
                 </div>
+
+
             `;
 
+
             return;
+
+
         }
+
+
+
 
         const datos = usuarioSnap.data();
 
+
+
+
         app.innerHTML = `
-            <div>
-                <h2>Mi Usuario</h2>
 
-                <p><strong>Nombre:</strong> ${datos.nombre}</p>
-                <p><strong>Correo:</strong> ${datos.email}</p>
-                <p><strong>UID:</strong> ${datos.uid}</p>
 
-                <button id="btnModificar">
-                    Modificar datos
-                </button>
+            ${decoraciones}
 
-                <button id="btnCerrarSesion">
-                    Cerrar sesión
-                </button>
 
-                <button id="btnEliminarCuenta">
-                    Eliminar cuenta
-                </button>
+
+            <div class="inicio">
+
+
+
+                <div class="user-card">
+
+
+
+                    <h2>
+                        Mi Usuario
+                    </h2>
+
+
+
+
+                    <div class="user-info">
+
+
+
+                        <p>
+                            <strong>
+                                Nombre:
+                            </strong>
+
+                            ${datos.nombre}
+                        </p>
+
+
+
+
+                        <p>
+                            <strong>
+                                Correo:
+                            </strong>
+
+                            ${datos.email}
+                        </p>
+
+
+
+
+                        <p>
+                            <strong>
+                                UID:
+                            </strong>
+
+                            ${user.uid}
+                        </p>
+
+
+
+                    </div>
+
+
+
+
+
+                    <div class="user-buttons">
+
+
+
+                        <button 
+                            class="primary-btn"
+                            id="btnModificar">
+
+                            Modificar datos
+
+                        </button>
+
+
+
+                        <button 
+                            class="danger-btn"
+                            id="btnEliminarCuenta">
+
+                            Eliminar cuenta
+
+                        </button>
+
+
+
+                    </div>
+
+
+
+
+                </div>
+
+
+
             </div>
+
+
+
         `;
+
+
+
+
+
+
 
         document
             .getElementById("btnModificar")
             .addEventListener("click", () => {
 
+
+
                 app.innerHTML = `
-                    <div>
-                        <h2>Modificar datos</h2>
 
-                        <label>Nombre:</label>
 
-                        <input
-                            type="text"
-                            id="nombre"
-                            value="${datos.nombre || ''}"
-                        >
 
-                        <br><br>
+                    ${decoraciones}
 
-                        <button id="btnGuardar">
-                            Guardar cambios
-                        </button>
 
-                        <button id="btnCancelar">
-                            Cancelar
-                        </button>
+
+
+                    <div class="inicio">
+
+
+
+                        <div class="user-card">
+
+
+
+                            <h2>
+                                Modificar datos
+                            </h2>
+
+
+
+
+
+                            <label>
+                                Nombre:
+                            </label>
+
+
+
+
+                            <input
+
+                                class="user-input"
+
+                                type="text"
+
+                                id="nombre"
+
+                                value="${datos.nombre || ''}"
+
+                            >
+
+
+
+
+
+
+                            <div class="user-buttons">
+
+
+
+                                <button
+
+                                    class="primary-btn"
+
+                                    id="btnGuardar">
+
+                                    Guardar cambios
+
+                                </button>
+
+
+
+
+
+                                <button
+
+                                    class="secondary-btn"
+
+                                    id="btnCancelar">
+
+                                    Cancelar
+
+                                </button>
+
+
+
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+
                     </div>
+
+
+
+
                 `;
+
+
+
+
+
 
                 document
                     .getElementById("btnGuardar")
                     .addEventListener("click", async () => {
 
+
+
                         const nuevoNombre =
                             document.getElementById("nombre").value;
 
+
+
+
+
                         try {
 
+
+
                             await updateDoc(usuarioRef, {
+
+
                                 nombre: nuevoNombre
+
+
                             });
 
-                            alert("Datos actualizados correctamente");
+
+
+
+                            alert(
+                                "Datos actualizados correctamente"
+                            );
+
+
 
                             mostrarUsuario();
 
-                        } catch (error) {
+
+
+
+                        } catch(error) {
+
+
 
                             console.error(
-                                "Error actualizando los datos:",
+                                "Error actualizando datos:",
                                 error
                             );
 
+
+
                             alert(
-                                "Error al actualizar los datos: " +
-                                error.message
+                                "Error al actualizar datos: "
+                                + error.message
                             );
+
+
                         }
+
+
+
                     });
+
+
+
+
+
+
 
                 document
                     .getElementById("btnCancelar")
                     .addEventListener("click", () => {
+
+
                         mostrarUsuario();
+
+
                     });
+
+
+
             });
+
+
+
+
+
+
+
+
 
         document
             .getElementById("btnCerrarSesion")
             .addEventListener("click", async () => {
 
+
+
                 try {
+
+
 
                     await signOut(auth);
 
-                    alert("Sesión cerrada correctamente");
+
+
+                    alert(
+                        "Sesión cerrada correctamente"
+                    );
+
+
 
                     window.location.reload();
 
-                } catch (error) {
+
+
+
+                } catch(error) {
+
+
 
                     alert(
-                        "Error al cerrar sesión: " +
-                        error.message
+                        "Error al cerrar sesión: "
+                        + error.message
                     );
+
+
                 }
+
+
             });
+
+
+
+
+
+
+
+
+
 
         document
             .getElementById("btnEliminarCuenta")
             .addEventListener("click", async () => {
 
+
+
                 const confirmar = confirm(
                     "¿Estás seguro de que quieres eliminar tu cuenta?"
                 );
 
+
+
+
                 if (!confirmar) {
+
                     return;
+
                 }
+
+
+
+
+
 
                 try {
 
+
+
+                    const password = prompt(
+                        "Confirma tu contraseña para eliminar la cuenta:"
+                    );
+
+
+
+
+
+                    if (!password) {
+
+                        return;
+
+                    }
+
+
+
+
+
+
+                    const credential =
+                        EmailAuthProvider.credential(
+                            user.email,
+                            password
+                        );
+
+
+
+
+
+
+                    await reauthenticateWithCredential(
+                        user,
+                        credential
+                    );
+
+
+
+
+
                     await deleteDoc(usuarioRef);
+
+
+
                     await deleteUser(user);
 
-                    alert("Cuenta eliminada correctamente");
+
+
+
+
+
+                    alert(
+                        "Cuenta eliminada correctamente"
+                    );
+
+
 
                     window.location.reload();
 
-                } catch (error) {
+
+
+
+
+
+                } catch(error) {
+
+
 
                     console.error(
-                        "Error eliminando la cuenta:",
+                        "Error eliminando cuenta:",
                         error
                     );
 
+
+
                     alert(
-                        "Error al eliminar la cuenta: " +
-                        error.message
+                        "Error al eliminar cuenta: "
+                        + error.message
                     );
+
+
+
                 }
+
+
+
+
             });
 
-    } catch (error) {
+
+
+
+
+
+
+
+    } catch(error) {
+
+
 
         console.error(
-            "Error obteniendo los datos:",
+            "Error obteniendo datos:",
             error
         );
 
+
+
         app.innerHTML = `
-            <div>
-                <h2>Error</h2>
-                <p>No se pudieron cargar los datos del usuario.</p>
+
+
+
+            ${decoraciones}
+
+
+
+
+            <div class="inicio">
+
+
+                <div class="user-card">
+
+
+                    <h2>
+                        Error
+                    </h2>
+
+
+                    <p>
+                        No se pudieron cargar los datos del usuario.
+                    </p>
+
+
+
+                </div>
+
+
             </div>
+
+
+
         `;
+
+
+
     }
+
+
+
 }
