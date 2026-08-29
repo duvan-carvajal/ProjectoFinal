@@ -1,100 +1,231 @@
 /* =========================================================
+   FONTS
+   Space Grotesk -> headings / wordmark
+   Inter          -> body/UI text (already linked in the HTML)
+   JetBrains Mono -> anything that is literally code
+   ========================================================= */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap');
+
+
+/* =========================================================
+   DESIGN TOKENS
+   Matched to the existing DuoProg dashboard: near-black navy,
+   dark cards with a hairline border, amber CTA, and a
+   blue / teal / coral trio borrowed from the logo mark.
+   ========================================================= */
+:root {
+    /* surfaces */
+    --bg: #12141C;
+    --bg-deep: #0B0C12;
+    --surface: #1A1D27;
+    --surface-raised: #20232F;
+    --border: #2B2E3A;
+
+    /* ink */
+    --ink: #F3F4F7;
+    --ink-soft: #969BAA;
+    --ink-faint: #5B5F6E;
+
+    /* brand accents (from the DuoProg wordmark + icon) */
+    --accent: #F5C242;
+    --accent-dark: #E0AC2B;
+    --accent-soft: rgba(245, 194, 66, 0.14);
+
+    --blue: #4C82F7;
+    --blue-soft: rgba(76, 130, 247, 0.14);
+
+    --teal: #2ECC8F;
+    --teal-soft: rgba(46, 204, 143, 0.14);
+
+    --coral: #FF5C7A;
+    --coral-soft: rgba(255, 92, 122, 0.14);
+
+    /* code */
+    --code-bg: #0F111A;
+    --code-text: #DCDEE8;
+    --code-accent: var(--blue);
+
+    /* shape + shadow */
+    --radius-lg: 22px;
+    --radius-md: 16px;
+    --radius-sm: 10px;
+    --shadow-sm: 0 2px 10px rgba(0, 0, 0, 0.25);
+    --shadow-md: 0 12px 30px rgba(0, 0, 0, 0.35);
+    --shadow-accent: 0 10px 24px rgba(245, 194, 66, 0.22);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+/* =========================================================
    GENERAL PAGE STYLES
+   A quiet night sky sits behind every screen: a couple of
+   soft cloud blobs plus a scatter of sparkles, echoing the
+   dashboard background.
    ========================================================= */
 
-/* Basic settings applied to the entire website */
+html {
+    background: var(--bg);
+}
+
 body {
+    position: relative;
     margin: 0;
+    min-height: 100vh;
+
     font-family: 'Inter', sans-serif;
-    background: #f5f5f5;
+    background: var(--bg);
+    color: var(--ink);
     text-align: center;
+    -webkit-font-smoothing: antialiased;
+
+    overflow-x: hidden;
+}
+
+/* clouds */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+
+    background-image:
+        radial-gradient(ellipse 110px 55px at 12% 18%, #262A36 0%, transparent 70%),
+        radial-gradient(ellipse 90px 50px at 90% 78%, #262A36 0%, transparent 70%);
+    background-repeat: no-repeat;
+}
+
+/* sparkles */
+body::after {
+    content: "✦";
+    position: fixed;
+    top: 20%;
+    left: 19%;
+    z-index: 0;
+    pointer-events: none;
+
+    color: var(--accent);
+    font-size: 14px;
+    opacity: 0.8;
+
+    text-shadow:
+        62vw 4vh 0 rgba(245, 194, 66, 0.55),
+        14vw 58vh 0 rgba(245, 194, 66, 0.5),
+        79vw 34vh 0 rgba(245, 194, 66, 0.4);
+
+    animation: twinkle 3.6s ease-in-out infinite;
+}
+
+@keyframes twinkle {
+    0%, 100% { opacity: 0.35; }
+    50% { opacity: 0.9; }
+}
+
+/* Everything else sits above the ambient background */
+body > *:not(script) {
+    position: relative;
+    z-index: 1;
+}
+
+h1, h2 {
+    font-family: 'Space Grotesk', 'Inter', sans-serif;
+    letter-spacing: -0.01em;
+}
+
+button, input, textarea {
+    font-family: inherit;
+}
+
+button:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+    outline: 2px solid var(--blue);
+    outline-offset: 2px;
+}
+
+
+/* =========================================================
+   TOP-LEVEL PAGE TITLE (e.g. "Python Fundamentals")
+   ========================================================= */
+
+body > h1 {
+    padding: 28px 20px 4px;
+    margin: 0;
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--ink);
 }
 
 
 /* =========================================================
    COURSE MAP
-   The screen that shows all the available lessons/nodes
+   A circuit-style trail of nodes, same idea a soldered
+   board would use to connect components.
    ========================================================= */
 
-/* Container for the entire course path */
 .course-map {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 40px 20px;
+    padding: 30px 20px 120px;
 }
 
-
-/* Individual lesson/node on the course map */
 .lesson {
     width: 200px;
     text-align: center;
 }
 
-
-/* Move a lesson slightly to the left */
 .lesson.left {
     transform: translateX(-60px);
 }
 
-
-/* Move a lesson slightly to the right */
 .lesson.right {
     transform: translateX(60px);
 }
 
-
-/* Button surrounding each lesson's image */
-.lesson-button {
-    border: none;
-    background: none;
-    padding: 0;
-    cursor: pointer;
-}
-
-
-/* Image inside a lesson button */
-.lesson-button img {
-    width: 80px;
-    height: 80px;
-    object-fit: contain;
-}
-
-
-/* Lesson title */
 .lesson h2 {
-    margin: 10px 0 5px;
+    margin: 14px 0 4px;
+    font-size: 18px;
+    font-weight: 600;
+    color: var(--ink);
 }
 
-
-/* Lesson description */
 .lesson p {
     margin: 0;
-    color: #666;
+    color: var(--ink-soft);
+    font-size: 14px;
 }
 
 
 /* =========================================================
    COURSE MAP PATH
-   Lines connecting the different lessons
    ========================================================= */
 
-/* Basic path connecting two lessons */
 .path {
-    width: 80px;
-    height: 5px;
-    background: #555;
-    margin: 20px 0;
+    width: 90px;
+    height: 4px;
+    border-radius: 4px;
+    margin: 22px 0;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--blue) 0 9px,
+        transparent 9px 15px
+    );
+    opacity: 0.6;
 }
 
-
-/* Rotate a path toward the right */
 .path-right {
     transform: rotate(45deg);
 }
 
-
-/* Rotate a path toward the left */
 .path-left {
     transform: rotate(-45deg);
 }
@@ -102,10 +233,8 @@ body {
 
 /* =========================================================
    LESSON NODE BUTTONS
-   The circular buttons containing lesson images
    ========================================================= */
 
-/* Circular lesson button */
 .lesson-button {
     width: 100px;
     height: 100px;
@@ -113,27 +242,24 @@ body {
     border: none;
     border-radius: 50%;
 
-    background: white;
+    background: var(--surface);
+    box-shadow: var(--shadow-md), inset 0 0 0 3px var(--blue-soft);
 
     padding: 10px;
-
-    /* Shadow underneath the node */
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
-
     cursor: pointer;
 
-    /* Makes the hover animation smooth */
-    transition: transform 0.15s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
 }
 
-
-/* Makes the lesson node slightly bigger when hovered */
 .lesson-button:hover {
     transform: scale(1.08);
+    box-shadow: 0 0 0 4px var(--blue-soft), 0 10px 24px rgba(76, 130, 247, 0.25);
 }
 
+.lesson-button:active {
+    transform: scale(0.97);
+}
 
-/* Makes the lesson image fill the button */
 .lesson-button img {
     width: 100%;
     height: 100%;
@@ -141,12 +267,46 @@ body {
 }
 
 
+/* Locked lesson node */
+.lesson.locked .lesson-button {
+    cursor: not-allowed;
+    box-shadow: var(--shadow-sm), inset 0 0 0 3px var(--border);
+}
+
+.lesson.locked .lesson-button img {
+    filter: grayscale(1);
+    opacity: 0.4;
+}
+
+.lesson.locked .lesson-button:hover {
+    transform: none;
+    box-shadow: var(--shadow-sm), inset 0 0 0 3px var(--border);
+}
+
+.lesson.locked .lesson-button {
+    position: relative;
+}
+
+.lesson.locked .lesson-button::after {
+    content: "🔒";
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 22px;
+}
+
+.lesson.locked h2,
+.lesson.locked p {
+    color: var(--ink-faint);
+}
+
+
 /* =========================================================
    LESSON PAGE
-   The screen where the actual lesson activities happen
    ========================================================= */
 
-/* Main container for a lesson */
 .lesson-page {
     min-height: 100vh;
     box-sizing: border-box;
@@ -154,13 +314,12 @@ body {
     display: flex;
     flex-direction: column;
 
-    padding: 20px;
+    padding: 20px 20px 110px;
 }
 
 
 /* =========================================================
    LESSON HEADER
-   Contains the back button and lives
    ========================================================= */
 
 .lesson-header {
@@ -169,193 +328,297 @@ body {
     justify-content: space-between;
 }
 
-
-/* Back button in the top-left corner */
 .back-button {
-    border: none;
-    background: none;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    font-size: 28px;
+    border: none;
+    border-radius: 50%;
+    background: var(--surface);
+    box-shadow: var(--shadow-sm);
+
+    font-size: 20px;
+    color: var(--ink);
 
     cursor: pointer;
+    transition: background 0.15s ease;
 }
 
+.back-button:hover {
+    background: var(--surface-raised);
+}
 
-/* Container holding the player's lives */
 .lives {
     display: flex;
     gap: 6px;
 }
 
-
-/* Individual heart/life images */
 .lives img {
-    width: 32px;
-    height: 32px;
-
+    width: 30px;
+    height: 30px;
     object-fit: contain;
 }
 
 
 /* =========================================================
    QUESTION / ACTIVITY AREA
+   Rendered as one dark card, the same language as the
+   dashboard's greeting and course cards.
    ========================================================= */
 
-/* Main container for an activity/question */
 .question {
     flex: 1;
+    display: none; /* JS reveals this when an activity needs it */
 
-    display: flex;
     flex-direction: column;
     justify-content: center;
 
     max-width: 500px;
     width: 100%;
 
-    margin: 0 auto;
+    margin: 20px auto 0;
+    padding: 30px 26px;
+    box-sizing: border-box;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
 }
 
-
-/* Number showing which question/activity the user is on */
 .question-number {
-    color: #777;
-    font-size: 14px;
+    display: inline-block;
+    align-self: center;
+
+    margin: 0 auto 14px;
+    padding: 5px 14px;
+
+    border-radius: 999px;
+    background: var(--blue-soft);
+    color: var(--blue);
+
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
 }
 
-
-/* Main question text */
 .question h1 {
-    font-size: 26px;
-    margin-bottom: 30px;
+    font-size: 23px;
+    line-height: 1.35;
+    margin: 0 0 24px;
+    color: var(--ink);
 }
 
 
 /* =========================================================
    MULTIPLE CHOICE
+   Each answer gets an A/B/C/D badge generated purely in CSS
    ========================================================= */
 
-/* Container holding all answer buttons */
 .answers {
     display: flex;
     flex-direction: column;
     gap: 12px;
+
+    counter-reset: answer-index;
 }
 
-
-/* Individual multiple-choice answer */
 .answer {
+    position: relative;
     width: 100%;
+    box-sizing: border-box;
 
-    padding: 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
 
-    border: 2px solid #ddd;
-    border-radius: 14px;
+    padding: 15px 16px 15px 52px;
 
-    background: white;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-md);
+
+    background: var(--surface-raised);
 
     font-family: inherit;
-    font-size: 16px;
-
+    font-size: 15.5px;
+    color: var(--ink);
     text-align: left;
 
     cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease, transform 0.1s ease;
 }
 
+.answer::before {
+    counter-increment: answer-index;
+    content: counter(answer-index, upper-alpha);
 
-/* Appearance of an answer after the player selects it */
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 24px;
+    height: 24px;
+    border-radius: 8px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    background: var(--blue-soft);
+    color: var(--blue);
+
+    font-size: 12px;
+    font-weight: 700;
+}
+
+.answer:hover {
+    border-color: var(--blue);
+}
+
+.answer:active {
+    transform: scale(0.99);
+}
+
 .answer.selected {
-    border-color: #333;
-    background: #eee;
+    border-color: var(--blue);
+    background: var(--blue-soft);
+}
+
+.answer.selected::before {
+    background: var(--blue);
+    color: var(--bg-deep);
+}
+
+.answer.correct {
+    border-color: var(--teal);
+    background: var(--teal-soft);
+}
+
+.answer.correct::before {
+    background: var(--teal);
+    color: var(--bg-deep);
+}
+
+.answer.incorrect {
+    border-color: var(--coral);
+    background: var(--coral-soft);
+}
+
+.answer.incorrect::before {
+    background: var(--coral);
+    color: var(--bg-deep);
 }
 
 
 /* =========================================================
    CHECK BUTTON
+   Same amber pill as "CONTINUAR" on the dashboard.
    ========================================================= */
 
-/* Button used to submit an answer */
 .check-button {
+    display: none; /* JS shows it when an activity needs it */
+
     width: 100%;
+    max-width: 500px;
+    margin: 18px auto 0;
 
     padding: 16px;
 
     border: none;
-    border-radius: 14px;
+    border-radius: var(--radius-md);
 
-    background: #333;
-    color: white;
+    background: var(--accent);
+    color: var(--bg-deep);
+    box-shadow: var(--shadow-accent);
 
     font-family: inherit;
-    font-size: 16px;
+    font-size: 15px;
     font-weight: 700;
+    letter-spacing: 0.02em;
+    text-transform: uppercase;
 
     cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.check-button:hover {
+    background: var(--accent-dark);
+}
+
+.check-button:active {
+    transform: scale(0.98);
+}
+
+.check-button:disabled {
+    background: var(--border);
+    color: var(--ink-faint);
+    box-shadow: none;
+    cursor: not-allowed;
 }
 
 
 /* =========================================================
    INFORMATION ACTIVITIES
-   Used for introducing concepts before questions
    ========================================================= */
 
-/* Container for an information screen */
 .info-screen {
     width: 90%;
     max-width: 500px;
     margin: 60px auto;
+    padding: 34px 28px;
+    box-sizing: border-box;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+
     text-align: center;
 }
 
-
-/* Information screen title */
 .info-screen h1 {
-    font-size: 28px;
-    margin-bottom: 20px;
+    font-size: 26px;
+    margin-bottom: 16px;
+    color: var(--ink);
 }
 
-
-/* Information screen description */
 .info-screen p {
-    font-size: 17px;
-    line-height: 1.6;
-    color: #555;
+    font-size: 16.5px;
+    line-height: 1.65;
+    color: var(--ink-soft);
 }
 
-
-/* Button used to continue after reading information */
 .next-button {
-    margin-top: 30px;
-    padding: 14px 35px;
+    margin-top: 28px;
+    padding: 15px 38px;
 
     border: none;
-    border-radius: 12px;
+    border-radius: var(--radius-md);
+
+    background: var(--accent);
+    color: var(--bg-deep);
+    box-shadow: var(--shadow-accent);
+
+    font-size: 15px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
 
     cursor: pointer;
-
-    font-size: 16px;
-    font-weight: 600;
+    transition: background 0.15s ease, transform 0.1s ease;
 }
 
-
-/* =========================================================
-   INITIAL ACTIVITY VISIBILITY
-   ========================================================= */
-
-/*
-   The question is hidden initially because
-   the lesson may start with an information screen.
-*/
-.question {
-    display: none;
+.next-button:hover {
+    background: var(--accent-dark);
 }
 
-
-/*
-   The CHECK button is hidden initially.
-   JavaScript shows it when an activity needs it.
-*/
-.check-button {
-    display: none;
+.next-button:active {
+    transform: scale(0.98);
 }
 
 
@@ -363,250 +626,320 @@ body {
    MATCHING PAIRS
    ========================================================= */
 
-/* Container holding the left and right columns */
 #matching-container {
     display: flex;
     justify-content: center;
     gap: 20px;
-
     width: 100%;
-
     margin-top: 25px;
 }
 
-
-/* Left/right column containing the matching buttons */
 .matching-column {
     display: flex;
     flex-direction: column;
-
     gap: 12px;
-
     width: 45%;
 }
 
-
-/* Individual matching option */
 .matching-option {
     min-height: 55px;
 
-    padding: 10px;
+    padding: 10px 14px;
 
-    border: 2px solid #ddd;
-    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 
-    background: white;
+    border: 2px solid var(--border);
+    border-radius: var(--radius-sm);
+
+    background: var(--surface-raised);
+    color: var(--ink);
 
     font-family: 'Inter', sans-serif;
     font-size: 14px;
 
     cursor: pointer;
+    transition: border-color 0.15s ease, background 0.15s ease;
 }
 
+.matching-option:hover {
+    border-color: var(--blue);
+}
 
-/* Appearance when a matching option is selected */
 .matching-option.selected {
-    border-color: #333;
-    background: #eee;
+    border-color: var(--blue);
+    background: var(--blue-soft);
 }
 
-
-/*
-   Appearance after the correct pair has been matched.
-   pointer-events prevents the user from clicking it again.
-*/
 .matching-option.matched {
-    opacity: 0.5;
+    opacity: 0.55;
     pointer-events: none;
+    border-color: var(--teal);
+    background: var(--teal-soft);
 }
 
 
 /* =========================================================
    "WHAT DOES THIS CODE DO?" ACTIVITIES
-   Displays code that the user has to interpret
+   Styled like a real editor window, traffic-light dots and all
    ========================================================= */
 
-/* Code displayed to the user */
 #question-code {
     display: none;
+    position: relative;
 
-    width: 90%;
-
-    margin: 20px auto;
-
-    padding: 16px;
-
+    width: 100%;
     box-sizing: border-box;
 
-    background: #1e1e1e;
-    color: white;
+    margin: 0 0 22px;
+    padding: 38px 18px 18px;
 
-    border-radius: 12px;
+    background: var(--code-bg);
+    color: var(--code-text);
+
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
 
     text-align: left;
 
-    font-family: monospace;
-    font-size: 15px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14.5px;
+    line-height: 1.6;
 
-    /* Allows long code to wrap instead of overflowing */
     white-space: pre-wrap;
+}
+
+#question-code::before {
+    content: "";
+    position: absolute;
+    top: 15px;
+    left: 16px;
+
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+
+    background: #FF5F57;
+    box-shadow: 18px 0 0 #FEBC2E, 36px 0 0 #28C840;
 }
 
 
 /* =========================================================
    CODE WRITING ACTIVITIES
-   Text editor where the user writes their own code
    ========================================================= */
 
 #code-editor {
     display: none;
 
-    width: 90%;
-
-    min-height: 180px;
-
-    margin: 20px auto;
-
-    padding: 15px;
-
+    width: 100%;
     box-sizing: border-box;
 
-    /* Dark code-editor appearance */
-    background: #1e1e1e;
-    color: white;
+    min-height: 170px;
+
+    margin: 0 0 6px;
+    padding: 18px;
+
+    background: var(--code-bg);
+    color: var(--code-text);
 
     border: none;
-    border-radius: 12px;
+    border-top: 4px solid var(--code-accent);
+    border-radius: var(--radius-md);
 
-    /* Makes typed code look like actual code */
-    font-family: monospace;
-    font-size: 15px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14.5px;
+    line-height: 1.6;
 
-    /* Allows the user to resize the editor vertically */
     resize: vertical;
+}
+
+#code-editor::placeholder {
+    color: var(--ink-faint);
+}
+
+#code-editor:focus {
+    outline: none;
+    box-shadow: 0 0 0 3px var(--blue-soft);
 }
 
 
 /* =========================================================
    GAME OVER SCREEN
-   Shown when the player loses all 3 lives
    ========================================================= */
 
-/*
-   Full-screen overlay shown when the player
-   runs out of lives.
-
-   It starts hidden and JavaScript displays it
-   when lives reach 0.
-*/
 .game-over-screen {
     display: none;
 
-    /* Covers the entire screen */
     position: fixed;
     inset: 0;
 
-    background: #f5f5f5;
+    background: var(--bg);
 
-    /* Used when JavaScript changes display to "flex" */
     align-items: center;
     justify-content: center;
 
     text-align: center;
 }
 
-
-/* Container holding the game-over text and buttons */
 .game-over-content {
     width: 85%;
     max-width: 400px;
+    padding: 34px 28px;
+    box-sizing: border-box;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
 }
 
-
-/* Game-over title */
 .game-over-content h1 {
     margin-bottom: 10px;
+    font-size: 25px;
+    color: var(--coral);
 }
 
-
-/* Game-over description */
 .game-over-content p {
-    margin-bottom: 30px;
+    margin-bottom: 26px;
+    color: var(--ink-soft);
+}
+
+.retry-button,
+.exit-button {
+    width: 100%;
+    box-sizing: border-box;
+
+    padding: 15px;
+    margin-top: 10px;
+
+    border: none;
+    border-radius: var(--radius-md);
+
+    font-family: 'Inter', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-size: 14px;
+
+    cursor: pointer;
+    transition: transform 0.1s ease, background 0.15s ease, border-color 0.15s ease;
+}
+
+.retry-button:active,
+.exit-button:active {
+    transform: scale(0.98);
+}
+
+.retry-button {
+    background: var(--accent);
+    color: var(--bg-deep);
+    box-shadow: var(--shadow-accent);
+}
+
+.retry-button:hover {
+    background: var(--accent-dark);
+}
+
+.exit-button {
+    background: var(--surface-raised);
+    color: var(--ink);
+    border: 1px solid var(--border);
+}
+
+.exit-button:hover {
+    border-color: var(--coral);
+    color: var(--coral);
 }
 
 
 /* =========================================================
-   GAME OVER BUTTONS
+   COMPLETION SCREEN
    ========================================================= */
-
-/* Shared styles for both game-over buttons */
-.retry-button,
-.exit-button {
-    width: 100%;
-
-    padding: 15px;
-
-    margin-top: 10px;
-
-    border: none;
-    border-radius: 12px;
-
-    font-family: 'Inter', sans-serif;
-    font-weight: 600;
-
-    cursor: pointer;
-}
-
-
-/* TRY AGAIN button */
-.retry-button {
-    background: #222;
-    color: white;
-}
-
-
-/* EXIT LESSON button */
-.exit-button {
-    background: #ddd;
-    color: #222;
-}
-
 
 .completion-screen {
     position: fixed;
     inset: 0;
+    z-index: 1000;
 
     display: none;
     align-items: center;
     justify-content: center;
 
-    background: #f5f5f5;
-    z-index: 1000;
+    background: var(--bg);
 }
 
 .completion-content {
+    padding: 40px 34px;
+    box-sizing: border-box;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+
     text-align: center;
+    animation: pop-in 0.35s ease;
 }
 
 .completion-content h1 {
-    font-size: 32px;
-    margin-bottom: 20px;
+    font-size: 28px;
+    margin-bottom: 16px;
+    color: var(--ink);
 }
 
 .xp-reward {
-    font-size: 28px;
+    display: inline-block;
+    margin-bottom: 28px;
+    padding: 8px 20px;
+
+    border-radius: 999px;
+    background: var(--accent-soft);
+    color: var(--accent);
+    border: 1px solid var(--accent-soft);
+
+    font-size: 20px;
     font-weight: 700;
-    margin-bottom: 30px;
 }
 
 .completion-content button {
     padding: 15px 40px;
+
     border: none;
-    border-radius: 12px;
-    font-size: 16px;
+    border-radius: var(--radius-md);
+
+    background: var(--accent);
+    color: var(--bg-deep);
+    box-shadow: var(--shadow-accent);
+
+    font-size: 15px;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+
     cursor: pointer;
+    transition: background 0.15s ease, transform 0.1s ease;
 }
+
+.completion-content button:hover {
+    background: var(--accent-dark);
+}
+
+.completion-content button:active {
+    transform: scale(0.98);
+}
+
+@keyframes pop-in {
+    from {
+        opacity: 0;
+        transform: scale(0.92) translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
 
 /* =========================================================
    COURSE BROWSER
@@ -616,26 +949,25 @@ body {
     min-height: 100vh;
     box-sizing: border-box;
 
-    padding: 30px 20px 100px;
+    padding: 30px 20px 120px;
 
     max-width: 700px;
     margin: 0 auto;
 }
-
 
 .courses-header {
     text-align: left;
     margin-bottom: 25px;
 }
 
-
 .courses-header h1 {
     margin-bottom: 5px;
+    font-size: 26px;
+    color: var(--ink);
 }
 
-
 .courses-header p {
-    color: #666;
+    color: var(--ink-soft);
     margin: 0;
 }
 
@@ -646,26 +978,31 @@ body {
     margin-bottom: 25px;
 }
 
-
 .course-search input {
     width: 100%;
-
     box-sizing: border-box;
 
-    padding: 16px;
+    padding: 16px 18px;
 
-    border: 2px solid #ddd;
-    border-radius: 14px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    color: var(--ink);
 
     font-family: inherit;
     font-size: 16px;
 
     outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
 }
 
+.course-search input::placeholder {
+    color: var(--ink-faint);
+}
 
 .course-search input:focus {
-    border-color: #333;
+    border-color: var(--blue);
+    box-shadow: 0 0 0 3px var(--blue-soft);
 }
 
 
@@ -674,7 +1011,7 @@ body {
 .courses-list {
     display: flex;
     flex-direction: column;
-    gap: 15px;
+    gap: 14px;
 }
 
 
@@ -682,54 +1019,53 @@ body {
 
 .course-card {
     width: 100%;
+    box-sizing: border-box;
 
     display: flex;
     align-items: center;
-
     gap: 18px;
 
     padding: 18px;
 
-    border: 2px solid #ddd;
-    border-radius: 18px;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
 
-    background: white;
+    background: var(--surface);
 
     font-family: inherit;
-
     text-align: left;
 
     cursor: pointer;
-
-    transition: transform 0.15s ease,
-                box-shadow 0.15s ease;
+    transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
 }
-
 
 .course-card:hover {
     transform: translateY(-2px);
+    border-color: var(--blue);
+    box-shadow: var(--shadow-md);
+}
 
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+.course-card:active {
+    transform: translateY(0);
 }
 
 
 /* COURSE ICON */
 
 .course-icon {
-    width: 65px;
-    height: 65px;
-
+    width: 60px;
+    height: 60px;
     flex-shrink: 0;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-radius: 15px;
+    border-radius: var(--radius-md);
+    background: var(--surface-raised);
+    border: 1px solid var(--border);
 
-    background: #f1f1f1;
-
-    font-size: 32px;
+    font-size: 28px;
 }
 
 
@@ -737,29 +1073,191 @@ body {
 
 .course-info {
     flex: 1;
+    min-width: 0;
 }
-
 
 .course-info h2 {
-    margin: 0 0 5px;
-
-    font-size: 18px;
+    margin: 0 0 4px;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--ink);
 }
-
 
 .course-info p {
     margin: 0 0 10px;
-
-    color: #666;
-
+    color: var(--ink-soft);
     font-size: 14px;
 }
 
-
 .course-info span {
-    font-size: 12px;
+    display: inline-block;
+    padding: 3px 10px;
 
+    border-radius: 999px;
+    background: var(--teal-soft);
+    color: var(--teal);
+
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+}
+
+
+/* =========================================================
+   BOTTOM NAVIGATION
+   ========================================================= */
+
+.bottom-nav {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 500;
+
+    display: flex;
+    justify-content: space-around;
+
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.3);
+
+    padding: 10px 6px calc(10px + env(safe-area-inset-bottom));
+}
+
+.bottom-nav button {
+    flex: 1;
+    max-width: 120px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 3px;
+
+    border: none;
+    background: none;
+
+    padding: 6px 4px;
+    border-radius: var(--radius-sm);
+
+    color: var(--ink-soft);
+    font-family: inherit;
+    font-size: 11px;
     font-weight: 600;
 
-    color: #666;
+    cursor: pointer;
+    transition: color 0.15s ease, background 0.15s ease;
+}
+
+.bottom-nav button span:first-child {
+    font-size: 20px;
+    line-height: 1;
+}
+
+.bottom-nav button:hover {
+    color: var(--accent);
+    background: var(--accent-soft);
+}
+
+
+/* =========================================================
+   DASHBOARD-STYLE PIECES (for duoprog.html)
+   Optional utility classes matching the greeting card, top
+   navbar pills, and XP chip already used on the dashboard —
+   share your duoprog.html markup and I'll wire these to it
+   exactly, or reuse them with these class names.
+   ========================================================= */
+
+.top-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 16px 24px;
+
+    background: var(--bg-deep);
+    border-bottom: 1px solid var(--border);
+}
+
+.top-nav .brand {
+    font-family: 'Space Grotesk', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+.top-nav .brand span {
+    color: var(--blue);
+}
+
+.top-nav .nav-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.pill-button {
+    padding: 9px 18px;
+    border-radius: 999px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    color: var(--ink);
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.15s ease, border-color 0.15s ease;
+}
+
+.pill-button.light {
+    background: var(--ink);
+    color: var(--bg-deep);
+    border-color: var(--ink);
+}
+
+.pill-button.danger {
+    border-color: var(--coral);
+    color: var(--coral);
+    background: transparent;
+}
+
+.pill-button.danger:hover {
+    background: var(--coral-soft);
+}
+
+.greeting-card {
+    max-width: 700px;
+    margin: 30px auto 0;
+    padding: 30px;
+    box-sizing: border-box;
+
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    text-align: left;
+}
+
+.greeting-card h1 {
+    margin: 0 0 8px;
+    font-size: 24px;
+    color: var(--ink);
+}
+
+.greeting-card p {
+    margin: 0 0 18px;
+    color: var(--ink-soft);
+}
+
+.xp-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+
+    padding: 8px 16px;
+    border-radius: 999px;
+
+    background: var(--bg-deep);
+    border: 1px solid var(--border);
+    color: var(--accent);
+
+    font-size: 14px;
+    font-weight: 700;
 }

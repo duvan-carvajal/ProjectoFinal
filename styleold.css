@@ -1,0 +1,765 @@
+/* =========================================================
+   GENERAL PAGE STYLES
+   ========================================================= */
+
+/* Basic settings applied to the entire website */
+body {
+    margin: 0;
+    font-family: 'Inter', sans-serif;
+    background: #f5f5f5;
+    text-align: center;
+}
+
+
+/* =========================================================
+   COURSE MAP
+   The screen that shows all the available lessons/nodes
+   ========================================================= */
+
+/* Container for the entire course path */
+.course-map {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 40px 20px;
+}
+
+
+/* Individual lesson/node on the course map */
+.lesson {
+    width: 200px;
+    text-align: center;
+}
+
+
+/* Move a lesson slightly to the left */
+.lesson.left {
+    transform: translateX(-60px);
+}
+
+
+/* Move a lesson slightly to the right */
+.lesson.right {
+    transform: translateX(60px);
+}
+
+
+/* Button surrounding each lesson's image */
+.lesson-button {
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+}
+
+
+/* Image inside a lesson button */
+.lesson-button img {
+    width: 80px;
+    height: 80px;
+    object-fit: contain;
+}
+
+
+/* Lesson title */
+.lesson h2 {
+    margin: 10px 0 5px;
+}
+
+
+/* Lesson description */
+.lesson p {
+    margin: 0;
+    color: #666;
+}
+
+
+/* =========================================================
+   COURSE MAP PATH
+   Lines connecting the different lessons
+   ========================================================= */
+
+/* Basic path connecting two lessons */
+.path {
+    width: 80px;
+    height: 5px;
+    background: #555;
+    margin: 20px 0;
+}
+
+
+/* Rotate a path toward the right */
+.path-right {
+    transform: rotate(45deg);
+}
+
+
+/* Rotate a path toward the left */
+.path-left {
+    transform: rotate(-45deg);
+}
+
+
+/* =========================================================
+   LESSON NODE BUTTONS
+   The circular buttons containing lesson images
+   ========================================================= */
+
+/* Circular lesson button */
+.lesson-button {
+    width: 100px;
+    height: 100px;
+
+    border: none;
+    border-radius: 50%;
+
+    background: white;
+
+    padding: 10px;
+
+    /* Shadow underneath the node */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+
+    cursor: pointer;
+
+    /* Makes the hover animation smooth */
+    transition: transform 0.15s ease;
+}
+
+
+/* Makes the lesson node slightly bigger when hovered */
+.lesson-button:hover {
+    transform: scale(1.08);
+}
+
+
+/* Makes the lesson image fill the button */
+.lesson-button img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+
+/* =========================================================
+   LESSON PAGE
+   The screen where the actual lesson activities happen
+   ========================================================= */
+
+/* Main container for a lesson */
+.lesson-page {
+    min-height: 100vh;
+    box-sizing: border-box;
+
+    display: flex;
+    flex-direction: column;
+
+    padding: 20px;
+}
+
+
+/* =========================================================
+   LESSON HEADER
+   Contains the back button and lives
+   ========================================================= */
+
+.lesson-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+
+/* Back button in the top-left corner */
+.back-button {
+    border: none;
+    background: none;
+
+    font-size: 28px;
+
+    cursor: pointer;
+}
+
+
+/* Container holding the player's lives */
+.lives {
+    display: flex;
+    gap: 6px;
+}
+
+
+/* Individual heart/life images */
+.lives img {
+    width: 32px;
+    height: 32px;
+
+    object-fit: contain;
+}
+
+
+/* =========================================================
+   QUESTION / ACTIVITY AREA
+   ========================================================= */
+
+/* Main container for an activity/question */
+.question {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    max-width: 500px;
+    width: 100%;
+
+    margin: 0 auto;
+}
+
+
+/* Number showing which question/activity the user is on */
+.question-number {
+    color: #777;
+    font-size: 14px;
+}
+
+
+/* Main question text */
+.question h1 {
+    font-size: 26px;
+    margin-bottom: 30px;
+}
+
+
+/* =========================================================
+   MULTIPLE CHOICE
+   ========================================================= */
+
+/* Container holding all answer buttons */
+.answers {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+
+/* Individual multiple-choice answer */
+.answer {
+    width: 100%;
+
+    padding: 18px;
+
+    border: 2px solid #ddd;
+    border-radius: 14px;
+
+    background: white;
+
+    font-family: inherit;
+    font-size: 16px;
+
+    text-align: left;
+
+    cursor: pointer;
+}
+
+
+/* Appearance of an answer after the player selects it */
+.answer.selected {
+    border-color: #333;
+    background: #eee;
+}
+
+
+/* =========================================================
+   CHECK BUTTON
+   ========================================================= */
+
+/* Button used to submit an answer */
+.check-button {
+    width: 100%;
+
+    padding: 16px;
+
+    border: none;
+    border-radius: 14px;
+
+    background: #333;
+    color: white;
+
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: 700;
+
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   INFORMATION ACTIVITIES
+   Used for introducing concepts before questions
+   ========================================================= */
+
+/* Container for an information screen */
+.info-screen {
+    width: 90%;
+    max-width: 500px;
+    margin: 60px auto;
+    text-align: center;
+}
+
+
+/* Information screen title */
+.info-screen h1 {
+    font-size: 28px;
+    margin-bottom: 20px;
+}
+
+
+/* Information screen description */
+.info-screen p {
+    font-size: 17px;
+    line-height: 1.6;
+    color: #555;
+}
+
+
+/* Button used to continue after reading information */
+.next-button {
+    margin-top: 30px;
+    padding: 14px 35px;
+
+    border: none;
+    border-radius: 12px;
+
+    cursor: pointer;
+
+    font-size: 16px;
+    font-weight: 600;
+}
+
+
+/* =========================================================
+   INITIAL ACTIVITY VISIBILITY
+   ========================================================= */
+
+/*
+   The question is hidden initially because
+   the lesson may start with an information screen.
+*/
+.question {
+    display: none;
+}
+
+
+/*
+   The CHECK button is hidden initially.
+   JavaScript shows it when an activity needs it.
+*/
+.check-button {
+    display: none;
+}
+
+
+/* =========================================================
+   MATCHING PAIRS
+   ========================================================= */
+
+/* Container holding the left and right columns */
+#matching-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+
+    width: 100%;
+
+    margin-top: 25px;
+}
+
+
+/* Left/right column containing the matching buttons */
+.matching-column {
+    display: flex;
+    flex-direction: column;
+
+    gap: 12px;
+
+    width: 45%;
+}
+
+
+/* Individual matching option */
+.matching-option {
+    min-height: 55px;
+
+    padding: 10px;
+
+    border: 2px solid #ddd;
+    border-radius: 12px;
+
+    background: white;
+
+    font-family: 'Inter', sans-serif;
+    font-size: 14px;
+
+    cursor: pointer;
+}
+
+
+/* Appearance when a matching option is selected */
+.matching-option.selected {
+    border-color: #333;
+    background: #eee;
+}
+
+
+/*
+   Appearance after the correct pair has been matched.
+   pointer-events prevents the user from clicking it again.
+*/
+.matching-option.matched {
+    opacity: 0.5;
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   "WHAT DOES THIS CODE DO?" ACTIVITIES
+   Displays code that the user has to interpret
+   ========================================================= */
+
+/* Code displayed to the user */
+#question-code {
+    display: none;
+
+    width: 90%;
+
+    margin: 20px auto;
+
+    padding: 16px;
+
+    box-sizing: border-box;
+
+    background: #1e1e1e;
+    color: white;
+
+    border-radius: 12px;
+
+    text-align: left;
+
+    font-family: monospace;
+    font-size: 15px;
+
+    /* Allows long code to wrap instead of overflowing */
+    white-space: pre-wrap;
+}
+
+
+/* =========================================================
+   CODE WRITING ACTIVITIES
+   Text editor where the user writes their own code
+   ========================================================= */
+
+#code-editor {
+    display: none;
+
+    width: 90%;
+
+    min-height: 180px;
+
+    margin: 20px auto;
+
+    padding: 15px;
+
+    box-sizing: border-box;
+
+    /* Dark code-editor appearance */
+    background: #1e1e1e;
+    color: white;
+
+    border: none;
+    border-radius: 12px;
+
+    /* Makes typed code look like actual code */
+    font-family: monospace;
+    font-size: 15px;
+
+    /* Allows the user to resize the editor vertically */
+    resize: vertical;
+}
+
+
+/* =========================================================
+   GAME OVER SCREEN
+   Shown when the player loses all 3 lives
+   ========================================================= */
+
+/*
+   Full-screen overlay shown when the player
+   runs out of lives.
+
+   It starts hidden and JavaScript displays it
+   when lives reach 0.
+*/
+.game-over-screen {
+    display: none;
+
+    /* Covers the entire screen */
+    position: fixed;
+    inset: 0;
+
+    background: #f5f5f5;
+
+    /* Used when JavaScript changes display to "flex" */
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+}
+
+
+/* Container holding the game-over text and buttons */
+.game-over-content {
+    width: 85%;
+    max-width: 400px;
+}
+
+
+/* Game-over title */
+.game-over-content h1 {
+    margin-bottom: 10px;
+}
+
+
+/* Game-over description */
+.game-over-content p {
+    margin-bottom: 30px;
+}
+
+
+/* =========================================================
+   GAME OVER BUTTONS
+   ========================================================= */
+
+/* Shared styles for both game-over buttons */
+.retry-button,
+.exit-button {
+    width: 100%;
+
+    padding: 15px;
+
+    margin-top: 10px;
+
+    border: none;
+    border-radius: 12px;
+
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+
+    cursor: pointer;
+}
+
+
+/* TRY AGAIN button */
+.retry-button {
+    background: #222;
+    color: white;
+}
+
+
+/* EXIT LESSON button */
+.exit-button {
+    background: #ddd;
+    color: #222;
+}
+
+
+.completion-screen {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+
+    background: #f5f5f5;
+    z-index: 1000;
+}
+
+.completion-content {
+    text-align: center;
+}
+
+.completion-content h1 {
+    font-size: 32px;
+    margin-bottom: 20px;
+}
+
+.xp-reward {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 30px;
+}
+
+.completion-content button {
+    padding: 15px 40px;
+    border: none;
+    border-radius: 12px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* =========================================================
+   COURSE BROWSER
+   ========================================================= */
+
+.courses-page {
+    min-height: 100vh;
+    box-sizing: border-box;
+
+    padding: 30px 20px 100px;
+
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+
+.courses-header {
+    text-align: left;
+    margin-bottom: 25px;
+}
+
+
+.courses-header h1 {
+    margin-bottom: 5px;
+}
+
+
+.courses-header p {
+    color: #666;
+    margin: 0;
+}
+
+
+/* SEARCH */
+
+.course-search {
+    margin-bottom: 25px;
+}
+
+
+.course-search input {
+    width: 100%;
+
+    box-sizing: border-box;
+
+    padding: 16px;
+
+    border: 2px solid #ddd;
+    border-radius: 14px;
+
+    font-family: inherit;
+    font-size: 16px;
+
+    outline: none;
+}
+
+
+.course-search input:focus {
+    border-color: #333;
+}
+
+
+/* COURSE LIST */
+
+.courses-list {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+
+/* COURSE CARD */
+
+.course-card {
+    width: 100%;
+
+    display: flex;
+    align-items: center;
+
+    gap: 18px;
+
+    padding: 18px;
+
+    border: 2px solid #ddd;
+    border-radius: 18px;
+
+    background: white;
+
+    font-family: inherit;
+
+    text-align: left;
+
+    cursor: pointer;
+
+    transition: transform 0.15s ease,
+                box-shadow 0.15s ease;
+}
+
+
+.course-card:hover {
+    transform: translateY(-2px);
+
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+
+/* COURSE ICON */
+
+.course-icon {
+    width: 65px;
+    height: 65px;
+
+    flex-shrink: 0;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border-radius: 15px;
+
+    background: #f1f1f1;
+
+    font-size: 32px;
+}
+
+
+/* COURSE INFO */
+
+.course-info {
+    flex: 1;
+}
+
+
+.course-info h2 {
+    margin: 0 0 5px;
+
+    font-size: 18px;
+}
+
+
+.course-info p {
+    margin: 0 0 10px;
+
+    color: #666;
+
+    font-size: 14px;
+}
+
+
+.course-info span {
+    font-size: 12px;
+
+    font-weight: 600;
+
+    color: #666;
+}
