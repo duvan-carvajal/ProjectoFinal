@@ -1,349 +1,114 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+/* ===== DuoProg — estilo neobrutalista ===== */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap');
 
-
-
-/* =========================================================
-   LOGIN PAGE
-========================================================= */
-
-
-.login-page {
-
-    min-height:100vh;
-
-    width:100%;
-
-    display:flex;
-
-    justify-content:center;
-
-    align-items:center;
-
-    background:#10151C;
-
-    padding:20px;
-
-    box-sizing:border-box;
-
-    font-family:'Inter', sans-serif;
-
+:root{
+  --bg: #F6F5FF;
+  --ink: #15131C;
+  --paper: #FFFFFF;
+  --yellow: #FFD53D;
+  --coral: #FF5A4E;
+  --violet: #6C4CFF;
+  --violet-soft: #EDE9FF;
+  --green: #33D17A;
+  --muted: #6E6B7C;
 }
 
+*{ box-sizing: border-box; }
 
-
-
-
-/* =========================================================
-   LOGIN CARD
-========================================================= */
-
-
-.login-card {
-
-
-    width:380px;
-
-    max-width:100%;
-
-    padding:35px;
-
-    box-sizing:border-box;
-
-
-    background:#1D2633;
-
-
-    border-radius:25px;
-
-
-    border:1px solid #273548;
-
-
-    box-shadow:
-
-    0 15px 40px rgba(0,0,0,0.35);
-
-
-
-    display:flex;
-
-    flex-direction:column;
-
-    gap:18px;
-
-
+html, body{
+  margin: 0;
+  min-height: 100%;
+  background: var(--bg);
+  background-image: radial-gradient(circle, #E3DFFF 1.5px, transparent 1.5px);
+  background-size: 22px 22px;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
 }
 
-
-
-
-
-.login-card h2 {
-
-
-    text-align:center;
-
-
-    color:#F4F7F8;
-
-
-    font-size:28px;
-
-
-    font-weight:800;
-
-
-    margin:0 0 10px;
-
-
+/* el <main> de tu app: asegúrate de que ocupe la pantalla para poder centrar el login */
+main{
+  display: block;
+  min-height: 100vh;
 }
 
-
-
-
-
-/* =========================================================
-   INPUTS
-========================================================= */
-
-
-.login-card input {
-
-
-    width:100%;
-
-
-    box-sizing:border-box;
-
-
-    padding:15px;
-
-
-    border-radius:15px;
-
-
-    border:2px solid #334155;
-
-
-    background:#10151C;
-
-
-    color:#F4F7F8;
-
-
-    font-size:16px;
-
-
-    font-family:inherit;
-
-
+/* ---- contenedor de la página de login ---- */
+.login-page{
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
 }
 
-
-
-
-
-.login-card input::placeholder {
-
-
-    color:#94A3B8;
-
-
+/* ---- tarjeta ---- */
+.login-card{
+  width: 100%;
+  max-width: 380px;
+  background: var(--paper);
+  border: 3px solid var(--ink);
+  border-radius: 26px;
+  box-shadow: 7px 7px 0 var(--ink);
+  padding: 30px 26px 28px;
+  transform: rotate(-0.6deg);
 }
 
-
-
-
-
-.login-card input:focus {
-
-
-    outline:none;
-
-
-    border-color:#20DFF5;
-
-
-    box-shadow:
-
-    0 0 10px rgba(32,223,245,0.35);
-
-
+.login-card h2{
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 24px;
+  text-align: center;
+  margin: 0 0 22px;
 }
 
-
-
-
-
-/* =========================================================
-   BUTTON
-========================================================= */
-
-
-.login-card button {
-
-
-    width:100%;
-
-
-    padding:15px;
-
-
-    border:none;
-
-
-    border-radius:18px;
-
-
-    background:#2778FF;
-
-
-    color:white;
-
-
-    font-size:17px;
-
-
-    font-weight:700;
-
-
-    cursor:pointer;
-
-
-    transition:.2s;
-
-
+/* ---- inputs ---- */
+.login-card input{
+  display: block;
+  width: 100%;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 14.5px;
+  font-weight: 500;
+  padding: 13px 14px;
+  margin-bottom: 14px;
+  border: 2.5px solid var(--ink);
+  border-radius: 14px;
+  background: #FBFAFF;
+  color: var(--ink);
+  outline: none;
 }
 
+.login-card input::placeholder{ color: #B4B1C2; }
 
-
-
-
-.login-card button:hover {
-
-
-    background:#20DFF5;
-
-
-    color:#10151C;
-
-
-    transform:translateY(-3px);
-
-
+.login-card input:focus{
+  background: #fff;
+  box-shadow: 3px 3px 0 var(--violet);
+  transform: translate(-1.5px, -1.5px);
 }
 
-
-
-
-
-/* =========================================================
-   TABLET
-========================================================= */
-
-
-@media(max-width:600px){
-
-
-
-    .login-page {
-
-
-        padding:20px;
-
-
-    }
-
-
-
-
-    .login-card {
-
-
-        width:100%;
-
-
-        max-width:380px;
-
-
-        padding:28px;
-
-
-        border-radius:22px;
-
-
-    }
-
-
-
-
-    .login-card h2 {
-
-
-        font-size:24px;
-
-
-    }
-
-
-
+/* ---- botón ---- */
+.login-card button{
+  display: block;
+  width: 100%;
+  border: 2.5px solid var(--ink);
+  border-radius: 16px;
+  background: var(--coral);
+  color: #fff;
+  font-family: 'Fredoka', sans-serif;
+  font-weight: 700;
+  font-size: 16px;
+  padding: 14px;
+  margin-top: 4px;
+  cursor: pointer;
+  box-shadow: 5px 5px 0 var(--ink);
+  transition: transform .08s ease, box-shadow .08s ease;
 }
 
+.login-card button:hover{ filter: brightness(1.03); }
 
+.login-card button:active{
+  box-shadow: 2px 2px 0 var(--ink);
+  transform: translate(3px, 3px);
+}
 
-
-
-
-/* =========================================================
-   CELULARES PEQUEÑOS
-========================================================= */
-
-
-@media(max-width:360px){
-
-
-
-    .login-card {
-
-
-        padding:22px;
-
-
-        border-radius:20px;
-
-
-    }
-
-
-
-
-
-    .login-card input {
-
-
-        padding:13px;
-
-
-        font-size:15px;
-
-
-    }
-
-
-
-
-
-    .login-card button {
-
-
-        padding:13px;
-
-
-        font-size:16px;
-
-
-    }
-
-
-
+@media (prefers-reduced-motion: reduce){
+  .login-card button{ transition: none; }
 }
