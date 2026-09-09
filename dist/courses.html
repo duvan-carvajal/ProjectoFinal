@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
+    <title>Courses</title>
+
+  <link rel="stylesheet" crossorigin href="/assets/style-CpnbyMQG.css">
+</head>
+
+<body>
+
+    <main class="courses-page">
+
+        <header class="courses-header">
+            <h1>Courses</h1>
+            <p>Choose something new to learn.</p>
+        </header>
+
+
+        <!-- SEARCH -->
+
+        <div class="course-search">
+
+            <input
+                type="text"
+                id="course-search"
+                placeholder="Search courses..."
+            >
+
+        </div>
+
+
+        <!-- COURSES -->
+
+        <section class="courses-list" id="courses-list">
+
+            <button
+                class="course-card"
+                onclick="window.location.href='index.html'"
+            >
+
+                <div class="course-icon">
+                    🐍
+                </div>
+
+                <div class="course-info">
+
+                    <h2>Python Fundamentals</h2>
+
+                    <p>
+                        Learn the basics of Python programming.
+                    </p>
+
+                    <span>Beginner</span>
+
+                </div>
+
+            </button>
+
+
+            <button class="course-card">
+
+                <div class="course-icon">
+                    🌐
+                </div>
+
+                <div class="course-info">
+
+                    <h2>Web Development</h2>
+
+                    <p>
+                        Learn HTML, CSS and JavaScript.
+                    </p>
+
+                    <span>Beginner</span>
+
+                </div>
+
+            </button>
+
+
+            <button class="course-card">
+
+                <div class="course-icon">
+                    🗄️
+                </div>
+
+                <div class="course-info">
+
+                    <h2>Databases</h2>
+
+                    <p>
+                        Learn SQL and database fundamentals.
+                    </p>
+
+                    <span>Intermediate</span>
+
+                </div>
+
+            </button>
+
+        </section>
+
+    </main>
+
+
+    <!-- BOTTOM NAVBAR -->
+
+    <nav class="bottom-nav">
+
+        <button onclick="window.location.href='index.html'">
+            <span>📚</span>
+            <span>Lessons</span>
+        </button>
+
+        <button onclick="window.location.href='duoprog.html'">
+            <span>📝</span>
+            <span>CRUD</span>
+        </button>
+
+        <button onclick="window.location.href='duoprog.html#leaderboard'">
+            <span>🏆</span>
+            <span>Ranking</span>
+        </button>
+
+        <button onclick="window.location.href='courses.html'">
+            <span>🔍</span>
+            <span>Buscar</span>
+        </button>
+        
+
+    </nav>
+
+
+    <script src="courses.js"></script>
+
+</body>
+
+</html>

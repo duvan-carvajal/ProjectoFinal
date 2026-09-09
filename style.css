@@ -302,6 +302,31 @@ body > h1 {
     color: var(--ink-faint);
 }
 
+/* Completed lesson node */
+.lesson.completed .lesson-button {
+    box-shadow: 0 0 0 3px #2ecc8f, 0 10px 24px rgba(46, 204, 143, 0.25);
+    position: relative;
+}
+
+.lesson.completed .lesson-button::before {
+    content: "✓";
+    position: absolute;
+    bottom: -2px;
+    right: -2px;
+    background: #2ecc8f;
+    color: #0b0c12;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+    font-weight: 800;
+    border: 2px solid var(--surface);
+    z-index: 2;
+}
+
 
 /* =========================================================
    LESSON PAGE

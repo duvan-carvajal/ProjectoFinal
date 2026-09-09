@@ -72,6 +72,14 @@ export default function mostrarNavbar() {
 
 
 
+                <button id="btnLeaderboard">
+
+                    Leaderboard
+
+                </button>
+
+
+
 
 
                 ${
@@ -171,6 +179,15 @@ export default function mostrarNavbar() {
 
 
     });
+
+
+
+    const btnLeaderboard = document.getElementById("btnLeaderboard");
+    if (btnLeaderboard) {
+        btnLeaderboard.addEventListener("click", () => {
+            window.location.hash = "#leaderboard";
+        });
+    }
 
 
 
@@ -337,6 +354,12 @@ export default function mostrarNavbar() {
         "#inicio":
 
         document.getElementById("btnInicio"),
+
+
+
+        "#leaderboard":
+
+        document.getElementById("btnLeaderboard"),
 
 
 

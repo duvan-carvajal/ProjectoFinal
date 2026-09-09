@@ -1,33 +1,122 @@
+import { auth, db } from './src/firebaseConfig.js';
+import { onAuthStateChanged } from 'firebase/auth';
+import { doc, getDoc, updateDoc } from 'firebase/firestore';
+
 let lives = 3;
 let userXP = 0;
 document.getElementById("retry-button").onclick = function() {
+let completedLessons = [];
+let currentUser = null;
+let progressLoaded = false;
 
     lives = 3;
+// Cargar progreso del usuario desde Firestore y caché local
+async function loadProgress(user) {
+    currentUser = user;
+    if (user) {
+        try {
+            const progresoRef = doc(db, "progreso", user.uid);
+            const snap = await getDoc(progresoRef);
+            if (snap.exists()) {
+                const data = snap.data();
+                userXP = Number(data.xp) || 0;
+                completedLessons = data.cursos?.python?.completedLessons || [];
+                localStorage.setItem(`duoprog_completed_${user.uid}`, JSON.stringify(completedLessons));
+                localStorage.setItem(`duoprog_xp_${user.uid}`, userXP.toString());
+            }
+        } catch (err) {
+            console.warn("No se pudo conectar a Firestore, usando caché local:", err);
+            const cached = localStorage.getItem(`duoprog_completed_${user.uid}`);
+            if (cached) completedLessons = JSON.parse(cached);
+            const cachedXP = localStorage.getItem(`duoprog_xp_${user.uid}`);
+            if (cachedXP) userXP = Number(cachedXP) || 0;
+        }
+    } else {
+        const cached = localStorage.getItem('duoprog_completed_guest');
+        if (cached) completedLessons = JSON.parse(cached);
+        const cachedXP = localStorage.getItem('duoprog_xp_guest');
+        if (cachedXP) userXP = Number(cachedXP) || 0;
+    }
+    progressLoaded = true;
+    updateCourseMapUI();
+}
 
+onAuthStateChanged(auth, async (user) => {
+    await loadProgress(user);
+});
 
     // Restore hearts
     document.getElementById("life-1").src =
         "assets/ui/heart-full.png";
+// Actualizar el mapa de cursos en index.html dinámicamente según el progreso
+function updateCourseMapUI() {
+    const introNode = document.getElementById("lesson-introduction");
+    const varsNode = document.getElementById("lesson-variables");
+    const typesNode = document.getElementById("lesson-dataTypes");
 
     document.getElementById("life-2").src =
         "assets/ui/heart-full.png";
+    if (!introNode && !varsNode && !typesNode) return;
 
     document.getElementById("life-3").src =
         "assets/ui/heart-full.png";
+    // Introducción
+    if (completedLessons.includes("introduction")) {
+        introNode?.classList.add("completed");
+        varsNode?.classList.remove("locked");
+    } else {
+        introNode?.classList.remove("completed");
+        varsNode?.classList.add("locked");
+    }
 
+    // Variables
+    if (completedLessons.includes("variables")) {
+        varsNode?.classList.add("completed");
+        typesNode?.classList.remove("locked");
+    } else {
+        varsNode?.classList.remove("completed");
+        typesNode?.classList.add("locked");
+    }
 
     // Hide game over
     document.getElementById("game-over-screen").style.display =
         "none";
+    // Data Types
+    if (completedLessons.includes("dataTypes")) {
+        typesNode?.classList.add("completed");
+    }
+}
 
+// Inicialización segura de botones (solo si existen en el DOM)
+const retryBtn = document.getElementById("retry-button");
+if (retryBtn) {
+    retryBtn.onclick = function() {
+        lives = 3;
+        const l1 = document.getElementById("life-1");
+        if (l1) l1.src = "assets/ui/heart-full.png";
+        const l2 = document.getElementById("life-2");
+        if (l2) l2.src = "assets/ui/heart-full.png";
+        const l3 = document.getElementById("life-3");
+        if (l3) l3.src = "assets/ui/heart-full.png";
 
     // Start lesson again
     startLesson();
+        const gameOverScreen = document.getElementById("game-over-screen");
+        if (gameOverScreen) gameOverScreen.style.display = "none";
 
 };
 document.getElementById("exit-button").onclick = function() {
+        startLesson();
+    };
+}
 
     window.location.href = "index.html";
+const exitBtn = document.getElementById("exit-button");
+if (exitBtn) {
+    exitBtn.onclick = function() {
+        window.location.href = "index.html";
+    };
+}
 
 };
 
@@ -346,6 +435,14 @@ function showGameOver() {
 }
 function openLesson(lesson) {
 
+    if (lesson === 'variables' && !completedLessons.includes('introduction')) {
+        alert("Debes completar la lección de 'Introduction' primero para desbloquear esta.");
+        return;
+    }
+    if (lesson === 'dataTypes' && !completedLessons.includes('variables')) {
+        alert("Debes completar la lección de 'Variables' primero para desbloquear esta.");
+        return;
+    }
     window.location.href = "lesson.html?lesson=" + lesson;
 
 }
@@ -847,31 +944,118 @@ function showDebugExercise(activity) {
 
 function completeLesson() {
     userXP += 25;
+async function completeLesson() {
+    const infoScreen = document.getElementById("info-screen");
+    if (infoScreen) infoScreen.style.display = "none";
+    const questionEl = document.querySelector(".question");
+    if (questionEl) questionEl.style.display = "none";
+    const checkBtn = document.querySelector(".check-button");
+    if (checkBtn) checkBtn.style.display = "none";
 
     document.getElementById("info-screen").style.display = "none";
     document.querySelector(".question").style.display = "none";
     document.querySelector(".check-button").style.display = "none";
+    const completionScreen = document.getElementById("completion-screen");
+    const xpRewardElem = document.querySelector(".xp-reward");
+    let subtitleElem = document.getElementById("completion-subtitle");
+    if (!subtitleElem) {
+        subtitleElem = document.createElement("p");
+        subtitleElem.id = "completion-subtitle";
+        subtitleElem.style.color = "#969baa";
+        subtitleElem.style.fontSize = "14px";
+        subtitleElem.style.marginTop = "-15px";
+        subtitleElem.style.marginBottom = "25px";
+        if (xpRewardElem && xpRewardElem.parentNode) {
+            xpRewardElem.parentNode.insertBefore(subtitleElem, xpRewardElem.nextSibling);
+        }
+    }
 
     document.getElementById("completion-screen").style.display = "flex";
+    const currentKey = lessonId;
+    const isFirstTime = currentKey && !completedLessons.includes(currentKey);
 
     console.log("XP:", userXP);
 }
+    if (isFirstTime) {
+        // SOLO SE GANA XP LA PRIMERA VEZ
+        userXP += 25;
+        completedLessons.push(currentKey);
 
 function goBackToCourse() {
     history.back();
 }
+        if (xpRewardElem) {
+            xpRewardElem.textContent = "+25 XP";
+            xpRewardElem.style.color = "var(--accent)";
+        }
+        if (subtitleElem) {
+            subtitleElem.textContent = "¡Felicidades! Ganaste 25 XP por completar esta lección por primera vez.";
+        }
 
+        // Guardar progreso en Firestore si hay usuario conectado
+        if (currentUser) {
+            try {
+                const progresoRef = doc(db, "progreso", currentUser.uid);
+                const snap = await getDoc(progresoRef);
+                let currentXP = 0;
+                let currentWeeklyXP = 0;
+                let existingCompleted = [];
 
+                if (snap.exists()) {
+                    const d = snap.data();
+                    currentXP = Number(d.xp) || 0;
+                    currentWeeklyXP = Number(d.weeklyXP !== undefined ? d.weeklyXP : d.xp) || 0;
+                    existingCompleted = d.cursos?.python?.completedLessons || [];
+                }
 
 function nextActivity() {
+                if (!existingCompleted.includes(currentKey)) {
+                    existingCompleted.push(currentKey);
+                }
 
     currentActivityIndex++;
+                await updateDoc(progresoRef, {
+                    xp: currentXP + 25,
+                    weeklyXP: currentWeeklyXP + 25,
+                    "cursos.python.completedLessons": existingCompleted
+                });
 
     showActivity();
+                localStorage.setItem(`duoprog_completed_${currentUser.uid}`, JSON.stringify(existingCompleted));
+                localStorage.setItem(`duoprog_xp_${currentUser.uid}`, (currentXP + 25).toString());
+            } catch (err) {
+                console.error("Error guardando progreso en Firestore:", err);
+            }
+        } else {
+            localStorage.setItem('duoprog_completed_guest', JSON.stringify(completedLessons));
+            localStorage.setItem('duoprog_xp_guest', userXP.toString());
+        }
+    } else {
+        // LECCIÓN REPETIDA: NUNCA VUELVE A GANAR XP
+        if (xpRewardElem) {
+            xpRewardElem.textContent = "+0 XP";
+            xpRewardElem.style.color = "#969baa";
+        }
+        if (subtitleElem) {
+            subtitleElem.textContent = "Lección ya completada anteriormente. Solo ganas experiencia la primera vez.";
+        }
+    }
 
+    if (completionScreen) {
+        completionScreen.style.display = "flex";
+    }
+
+    console.log("XP actual:", userXP, "¿Primera vez completada?:", isFirstTime);
 }
 
+function goBackToCourse() {
+    window.location.href = "index.html";
+}
 
+function nextActivity() {
+    currentActivityIndex++;
+    showActivity();
+}
 
 function finishLesson() {
 
@@ -879,6 +1063,13 @@ function finishLesson() {
 
 }
 
+// Exportar funciones al objeto global window para botones inline onclick
+window.openLesson = openLesson;
+window.checkAnswer = checkAnswer;
+window.goBackToCourse = goBackToCourse;
+window.nextActivity = nextActivity;
+window.finishLesson = finishLesson;
+window.completeLesson = completeLesson;
 
 
 if (currentLesson) {

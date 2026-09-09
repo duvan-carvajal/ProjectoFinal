@@ -23,6 +23,7 @@
 
     <main class="course-map">
     <div class="lesson left">
+    <div class="lesson left" id="lesson-introduction">
 
     <button class="lesson-button" onclick="openLesson('introduction')">
         <img src="assets/nodes/introduction.png" alt="Introduction">
@@ -36,6 +37,7 @@
 <div class="path path-right"></div>
 
 <div class="lesson right">
+<div class="lesson right locked" id="lesson-variables">
 
     <button class="lesson-button" onclick="openLesson('variables')">
         <img src="assets/nodes/variables.png" alt="Variables">
@@ -48,6 +50,7 @@
 <div class="path path-left"></div>
 
 <div class="lesson left locked">
+<div class="lesson left locked" id="lesson-dataTypes">
     <button class="lesson-button" onclick="openLesson('dataTypes')">
         <img src="assets/nodes/datatypes.png" alt="Data Types">
     </button>
@@ -58,6 +61,7 @@
 
     </main>
  <script src="script.js"></script>
+ <script type="module" src="script.js"></script>
  <nav class="bottom-nav">
 
     <button onclick="window.location.href='duoprog.html'">
@@ -70,8 +74,13 @@
         <span>Lessons</span>
     </button>
     
+    <button onclick="window.location.href='duoprog.html#leaderboard'">
+        <span>🏆</span>
+        <span>Ranking</span>
+    </button>
+    
     <button onclick="window.location.href='courses.html'">
-            <span></span>
+            <span>🔍</span>
             <span>Buscar</span>
     </button>
 

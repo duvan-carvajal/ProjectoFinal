@@ -8,6 +8,7 @@ import mostrarInicio from './pages/inicio/inicio.js';
 import mostrarLogin from './pages/login/login.js';
 import mostrarRegistro from './pages/registro/registro.js';
 import mostrarUsuario from './pages/usuario/usuario.js';
+import mostrarLeaderboard from './pages/leaderboard/leaderboard.js';
 
 
 async function mostrarPagina(usuario) {
@@ -28,6 +29,10 @@ async function mostrarPagina(usuario) {
                 mostrarRegistro();
                 return;
 
+            case '#leaderboard':
+                await mostrarLeaderboard();
+                return;
+
             default:
                 window.location.hash = "#login";
                 return;
@@ -41,6 +46,10 @@ async function mostrarPagina(usuario) {
 
         case '#usuario':
             await mostrarUsuario();
+            break;
+
+        case '#leaderboard':
+            await mostrarLeaderboard();
             break;
 
         case '#inicio':
