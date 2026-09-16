@@ -15,10 +15,6 @@ export default async function mostrarUsuario() {
 
     const decoraciones = `
 
-        <img src="${cloud}" class="cloud cloud-1">
-
-        <img src="${cloud}" class="cloud cloud-2">
-
 
         <div class="stars">
 

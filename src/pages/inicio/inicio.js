@@ -34,11 +34,6 @@ export default async function mostrarInicio() {
 
     app.innerHTML = `
 
-        <img src="${cloud}" class="cloud cloud-1">
-
-        <img src="${cloud}" class="cloud cloud-2">
-
-
         <div class="inicio">
 
 
@@ -127,13 +122,6 @@ export default async function mostrarInicio() {
 
         app.innerHTML = `
 
-
-            <img src="${cloud}" class="cloud cloud-1">
-
-
-            <img src="${cloud}" class="cloud cloud-2">
-
-            
             <div class="stars">
 
                 <span>✦</span>
