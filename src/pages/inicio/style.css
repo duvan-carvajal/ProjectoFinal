@@ -348,6 +348,17 @@ main{
   font-size: 24px;
 }
 
+.curso-icon img,
+.curso-icon-img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  pointer-events: none;
+}
+
 .curso-info{ flex: 1; min-width: 0; }
 
 .curso-info h3{

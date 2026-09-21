@@ -12,12 +12,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 
-    <title>Introduction</title>
+    <title>Lección - DuoProg</title>
 
-  <script type="module" crossorigin src="/assets/lesson-B5Cyd1et.js"></script>
-  <link rel="modulepreload" crossorigin href="/assets/firebaseConfig-CcrSE6B8.js">
-  <link rel="modulepreload" crossorigin href="/assets/script-Cqn53DSO.js">
-  <link rel="stylesheet" crossorigin href="/assets/style-CpnbyMQG.css">
+  <script type="module" crossorigin src="/assets/lesson-BSZWLQqD.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-D3Tm_XB5.js">
+  <link rel="modulepreload" crossorigin href="/assets/firebaseConfig-GM4JagJU.js">
+  <link rel="modulepreload" crossorigin href="/assets/script-p24Qtw1i.js">
+  <link rel="stylesheet" crossorigin href="/assets/style-CTgTzuSi.css">
 </head>
 
 <body>
@@ -51,7 +52,7 @@
             <p id="info-text"></p>
 
             <button id="info-next" class="next-button">
-                NEXT
+                CONTINUAR
             </button>
 
         </section>
@@ -66,7 +67,7 @@
             <h1 id="question-text"></h1>
             <pre id="question-code"></pre>
             
-            <textarea id="code-editor" placeholder="Write your code here..."></textarea>
+            <textarea id="code-editor" placeholder="Escribe tu código aquí..."></textarea>
 
             <div class="answers">
 
@@ -85,7 +86,7 @@
 
 
         <button class="check-button" onclick="checkAnswer()">
-            CHECK
+            COMPROBAR
         </button>
 
     <!-- GAME OVER SCREEN -->
@@ -94,16 +95,16 @@
 
     <div class="game-over-content">
 
-        <h1>Out of lives!</h1>
+        <h1>¡Te quedaste sin vidas!</h1>
 
-        <p>You ran out of lives.</p>
+        <p>Has agotado tus vidas en esta lección.</p>
 
         <button id="retry-button" class="retry-button">
-            TRY AGAIN
+            REINTENTAR
         </button>
 
         <button id="exit-button" class="exit-button">
-            EXIT LESSON
+            SALIR DE LA LECCIÓN
         </button>
 
     </div>
@@ -116,12 +117,12 @@
 <section id="completion-screen" class="completion-screen" style="display: none;">
 
     <div class="completion-content">
-        <h1> Lesson Completed!</h1>
+        <h1>¡Lección Completada!</h1>
 
         <p class="xp-reward">+25 XP</p>
 
         <button onclick="goBackToCourse()">
-            CONTINUE
+            CONTINUAR
         </button>
     </div>
 

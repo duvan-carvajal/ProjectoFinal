@@ -27,29 +27,55 @@ const lessons = {
 
     introduction: {
 
-        title: "Introduction",
+        title: "Introducción a Python",
 
         activities: [
 
             {
                 type: "info",
 
-                title: "What is Programming?",
+                title: "¿Qué es la Programación?",
 
                 text:
-                    "Programming is the process of giving a computer instructions to perform tasks. These instructions are written using programming languages such as Python, JavaScript, Java, and C++."
+                    "Una computadora es una máquina muy rápida y potente, pero no puede pensar por sí misma. Programar consiste en darle una serie de instrucciones claras y ordenadas para que realice tareas o resuelva problemas. Python es uno de los lenguajes de programación más populares y fáciles de aprender del mundo gracias a su sintaxis clara, parecida al idioma humano."
             },
 
             {
                 type: "multiple-choice",
 
-                question: "What is programming?",
+                question: "¿Qué es programar en el contexto de la computación?",
 
                 answers: [
-                    "Designing computer hardware",
-                    "Giving a computer instructions to perform tasks",
-                    "Using the internet",
-                    "Installing applications"
+                    "Darle instrucciones a una computadora para realizar tareas",
+                    "Armar las piezas físicas y circuitos de una computadora",
+                    "Navegar por diferentes páginas en internet",
+                    "Instalar videojuegos y aplicaciones"
+                ],
+
+                correct: 0
+            },
+
+            {
+                type: "info",
+
+                title: "Tu primera instrucción: print()",
+
+                text:
+                    "En Python usamos la función print() para mostrar texto o resultados en la pantalla. Lo que deseamos mostrar se coloca entre paréntesis. Cuando se trata de texto, siempre debe ir envuelto entre comillas (por ejemplo: \"Hola\" o 'Hola'). Ejemplo:\n\nprint(\"¡Hola, mundo!\")"
+            },
+
+            {
+                type: "multiple-choice",
+
+                question: "¿Qué mostrará en la pantalla la siguiente línea de código?",
+
+                code: 'print("Bienvenido a Python")',
+
+                answers: [
+                    "Nada, solo guarda el texto en silencio",
+                    "Bienvenido a Python",
+                    'print("Bienvenido a Python")',
+                    "Un error de sintaxis"
                 ],
 
                 correct: 1
@@ -58,15 +84,41 @@ const lessons = {
             {
                 type: "multiple-choice",
 
-                question: "What does this code do?",
+                question: "¿Por qué el siguiente código produce un error en Python?",
 
-                code: 'print("Hello!")',
+                code: "print(Hola mundo)",
 
                 answers: [
-                    "It stores Hello! in a variable",
-                    "It displays Hello!",
-                    "It creates a new program",
-                    "It deletes text"
+                    "Porque le faltan las comillas alrededor del texto",
+                    "Porque la palabra print debe ir en mayúsculas",
+                    "Porque no se puede mostrar texto en Python",
+                    "Porque le falta un punto y coma al final"
+                ],
+
+                correct: 0
+            },
+
+            {
+                type: "info",
+
+                title: "Comentarios y orden de ejecución",
+
+                text:
+                    "Python lee y ejecuta las instrucciones en orden: de arriba hacia abajo, una línea a la vez. Si deseas dejar notas explicativas en tu código, usas el símbolo numeral (#). Todo lo que escribas después de # es un comentario que Python ignorará por completo al ejecutar el programa."
+            },
+
+            {
+                type: "multiple-choice",
+
+                question: "¿Qué símbolo se utiliza en Python para escribir un comentario de una sola línea?",
+
+                code: '# Esta línea es un comentario y no se ejecuta\nprint("Esta línea sí se ejecuta")',
+
+                answers: [
+                    "//",
+                    "#",
+                    "/*",
+                    "--"
                 ],
 
                 correct: 1
@@ -75,23 +127,28 @@ const lessons = {
             {
                 type: "matching",
 
-                question: "Match each concept with its description.",
+                question: "Relaciona cada concepto con su función en Python:",
 
                 pairs: [
 
                     {
-                        left: "Program",
-                        right: "A set of instructions"
+                        left: "print()",
+                        right: "Muestra mensajes o datos en pantalla"
                     },
 
                     {
-                        left: "Programming",
-                        right: "Creating instructions for a computer"
+                        left: 'Comillas (" ")',
+                        right: "Indican que el contenido es texto"
+                    },
+
+                    {
+                        left: "# (Numeral)",
+                        right: "Inicia un comentario que Python ignora"
                     },
 
                     {
                         left: "Python",
-                        right: "A programming language"
+                        right: "Lenguaje que interpreta las instrucciones"
                     }
 
                 ]
@@ -101,10 +158,15 @@ const lessons = {
                 type: "code",
 
                 question:
-                    'Write code that displays "Hello, world!"',
+                    'Escribe el código para mostrar en pantalla exactamente: "Hola, mundo!" (recuerda usar print y comillas dobles).',
 
-                expected:
-                    'print("Hello, world!")'
+                expected: [
+                    'print("Hola, mundo!")',
+                    "print('Hola, mundo!')",
+                    'print("Hola, mundo! ")',
+                    'print("Hola mundo!")',
+                    "print('Hola mundo!')"
+                ]
             }
 
         ]
@@ -113,30 +175,53 @@ const lessons = {
 
     variables: {
 
-        title: "Variables",
+        title: "Variables en Python",
 
         activities: [
 
             {
                 type: "info",
 
-                title: "What are Variables?",
+                title: "¿Qué es una Variable?",
 
                 text:
-                    "Variables are used to store information in a program. Each variable has a name and a value, and that value can be used or changed while the program runs."
+                    "Imagina una variable como una caja etiquetada en la memoria de la computadora donde puedes guardar datos para usarlos más adelante. El nombre de la etiqueta es el nombre de la variable, y lo que guardas dentro es su valor. Por ejemplo, puedes guardar el nombre de un usuario, su puntuación o sus vidas restantes."
             },
 
             {
                 type: "multiple-choice",
 
-                question:
-                    "Which line creates a variable called age?",
+                question: "¿Cuál es el propósito principal de una variable?",
 
                 answers: [
-                    "age = 18",
-                    "print(age)",
-                    "age == 18",
-                    "variable age"
+                    "Guardar y recordar información en memoria durante el programa",
+                    "Acelerar la conexión a internet de la computadora",
+                    "Apagar la pantalla al terminar el código",
+                    "Crear un nuevo archivo de texto en el disco duro"
+                ],
+
+                correct: 0
+            },
+
+            {
+                type: "info",
+
+                title: "Asignación con el signo =",
+
+                text:
+                    "Para guardar un valor en una variable usamos el signo igual (=), conocido como el operador de asignación. A la izquierda escribes el nombre de la variable y a la derecha el valor que deseas guardarle:\n\npuntos = 100\njugador = \"Carlos\"\n\n¡Importante! En programación, el signo = no significa igualdad matemática, significa 'asigna o guarda el valor de la derecha en la variable de la izquierda'."
+            },
+
+            {
+                type: "multiple-choice",
+
+                question: "¿Cuál de las siguientes líneas crea correctamente una variable llamada 'energia' con el valor 100?",
+
+                answers: [
+                    "energia = 100",
+                    "100 = energia",
+                    "guardar 100 en energia",
+                    "energia == 100"
                 ],
 
                 correct: 0
@@ -145,46 +230,71 @@ const lessons = {
             {
                 type: "multiple-choice",
 
-                question:
-                    "What value is stored in the variable score?",
+                question: "¿Qué valor tendrá la variable 'vidas' al final de la ejecución?",
 
-                code:
-                    "score = 100",
+                code: "vidas = 3\nvidas = vidas - 1\nprint(vidas)",
 
                 answers: [
-                    "score",
-                    "100",
-                    "0",
-                    "It has no value"
+                    "3",
+                    "2",
+                    "vidas",
+                    "1"
                 ],
 
                 correct: 1
             },
 
             {
+                type: "multiple-choice",
+
+                question: "¿Cuál es la diferencia entre print(nombre) y print(\"nombre\")?",
+
+                code: 'nombre = "Sara"\nprint(nombre)\nprint("nombre")',
+
+                answers: [
+                    'print(nombre) muestra el valor "Sara" y print("nombre") muestra la palabra literal "nombre"',
+                    'Ambas instrucciones muestran exactamente la palabra "Sara"',
+                    'Ambas instrucciones muestran exactamente la palabra "nombre"',
+                    "print(nombre) produce un error porque le faltan comillas"
+                ],
+
+                correct: 0
+            },
+
+            {
+                type: "info",
+
+                title: "Reglas para nombrar variables",
+
+                text:
+                    "En Python los nombres de variables deben ser claros y seguir reglas:\n1. No pueden contener espacios (usa guiones bajos: mi_puntaje).\n2. No pueden empezar con un número (correcto: nivel1, incorrecto: 1nivel).\n3. Distinguen mayúsculas de minúsculas (Edad y edad son dos variables diferentes)."
+            },
+
+            {
                 type: "matching",
 
-                question:
-                    "Match each concept with its description.",
+                question: "Relaciona cada concepto sobre variables con su definición:",
 
                 pairs: [
 
                     {
                         left: "Variable",
-                        right:
-                            "A named place for storing information"
+                        right: "Espacio con nombre para guardar un dato"
                     },
 
                     {
-                        left: "Value",
-                        right:
-                            "The information stored in a variable"
+                        left: "Operador =",
+                        right: "Asigna un valor a la variable"
                     },
 
                     {
-                        left: "Assignment",
-                        right:
-                            "Giving a value to a variable"
+                        left: "Reasignación",
+                        right: "Cambiar el valor previo por uno nuevo"
+                    },
+
+                    {
+                        left: "snake_case",
+                        right: "Estilo con guión bajo para nombres (mi_dato)"
                     }
 
                 ]
@@ -194,10 +304,14 @@ const lessons = {
                 type: "code",
 
                 question:
-                    'Create a variable called "name" and give it the value "Alex".',
+                    'Crea una variable llamada nombre y asígnale el texto "Alex" (usa comillas dobles y el operador =).',
 
-                expected:
-                    'name = "Alex"'
+                expected: [
+                    'nombre = "Alex"',
+                    "nombre = 'Alex'",
+                    'nombre="Alex"',
+                    "nombre='Alex'"
+                ]
             }
 
         ]
@@ -206,46 +320,44 @@ const lessons = {
 
     dataTypes: {
 
-        title: "Data Types",
+        title: "Tipos de Datos",
 
         activities: [
 
             {
                 type: "info",
 
-                title: "What are Data Types?",
+                title: "Los Tipos de Datos Fundamentales",
 
                 text:
-                    "A data type describes what kind of information a value represents. Python has several built-in data types, including strings for text, integers for whole numbers, floats for decimal numbers, and booleans for true or false values."
+                    "En Python, cada dato pertenece a una categoría llamada tipo de dato. Esto le indica a Python qué operaciones puede realizar con él. Los 4 tipos primitivos esenciales son:\n\n• str (String): Texto entre comillas, ej: \"Hola\"\n• int (Integer): Números enteros sin decimales, ej: 42 o -5\n• float: Números con punto decimal, ej: 3.14 o 0.5\n• bool (Boolean): Valores lógicos, únicamente True o False"
             },
 
             {
                 type: "multiple-choice",
 
-                question:
-                    "Which data type is used to store text?",
+                question: "¿Qué tipo de dato representa el texto \"Aprender Python\"?",
 
                 answers: [
-                    "int",
-                    "float",
-                    "str",
-                    "bool"
+                    "str (String / Cadena de texto)",
+                    "int (Entero)",
+                    "float (Decimal)",
+                    "bool (Booleano)"
                 ],
 
-                correct: 2
+                correct: 0
             },
 
             {
                 type: "multiple-choice",
 
-                question:
-                    "What data type is the value 42?",
+                question: "¿Qué tipo de dato representa el número 42 (sin comillas y sin punto decimal)?",
 
                 answers: [
-                    "str",
-                    "int",
-                    "float",
-                    "bool"
+                    "float (Decimal)",
+                    "int (Entero)",
+                    "str (Texto)",
+                    "bool (Booleano)"
                 ],
 
                 correct: 1
@@ -254,30 +366,71 @@ const lessons = {
             {
                 type: "multiple-choice",
 
-                question:
-                    "What data type is the value 3.14?",
+                question: "¿Qué tipo de dato es la variable precio en este código?",
+
+                code: "precio = 19.99",
 
                 answers: [
-                    "int",
-                    "str",
-                    "float",
-                    "bool"
+                    "int (Entero)",
+                    "float (Número decimal)",
+                    "str (Texto)",
+                    "bool (Booleano)"
                 ],
 
-                correct: 2
+                correct: 1
+            },
+
+            {
+                type: "multiple-choice",
+
+                question: "¿Cuáles son los únicos dos valores válidos para el tipo bool (Booleano) en Python?",
+
+                answers: [
+                    "True y False (con la primera letra mayúscula)",
+                    "true y false (todo en minúsculas)",
+                    "1 y 0 únicamente",
+                    '"Verdadero" y "Falso"'
+                ],
+
+                correct: 0
+            },
+
+            {
+                type: "info",
+
+                title: "Operaciones y el tipo de dato",
+
+                text:
+                    "El operador de suma (+) se comporta de forma diferente según el tipo de dato:\n\n• Con números (int o float): Suma matemáticamente -> 10 + 20 da 30\n• Con textos (str): Concatena o une los textos -> \"10\" + \"20\" da \"1020\"\n\n¡Por eso es fundamental conocer el tipo de dato de cada variable!"
+            },
+
+            {
+                type: "multiple-choice",
+
+                question: "¿Cuál es el resultado de ejecutar este código en Python?",
+
+                code: 'a = "10"\nb = "20"\nprint(a + b)',
+
+                answers: [
+                    "30",
+                    '"1020"',
+                    "Error de tipos",
+                    '"a + b"'
+                ],
+
+                correct: 1
             },
 
             {
                 type: "matching",
 
-                question:
-                    "Match each data type with an example.",
+                question: "Relaciona cada tipo de dato con su ejemplo exacto:",
 
                 pairs: [
 
                     {
                         left: "str",
-                        right: '"Hello"'
+                        right: '"Hola mundo"'
                     },
 
                     {
@@ -302,10 +455,12 @@ const lessons = {
                 type: "code",
 
                 question:
-                    'Create a variable called "age" and give it the integer value 19.',
+                    'Crea una variable llamada edad y asígnale el número entero 19 (sin comillas).',
 
-                expected:
-                    "age = 19"
+                expected: [
+                    "edad = 19",
+                    "edad=19"
+                ]
             }
 
         ]
@@ -434,69 +589,63 @@ onAuthStateChanged(auth, async (user) => {
 // ============================================================
 
 function updateCourseMapUI() {
-
-    const introNode =
-        document.getElementById("lesson-introduction");
-
-    const varsNode =
-        document.getElementById("lesson-variables");
-
-    const typesNode =
-        document.getElementById("lesson-dataTypes");
-
-
-    // If we are not on index.html,
-    // these elements may not exist.
+    const introNode = document.getElementById("lesson-introduction");
+    const varsNode = document.getElementById("lesson-variables");
+    const typesNode = document.getElementById("lesson-dataTypes");
+    const path1 = document.getElementById("path-1");
+    const path2 = document.getElementById("path-2");
 
     if (!introNode && !varsNode && !typesNode) {
         return;
     }
 
+    const setNodeStatus = (node, status) => {
+        if (!node) return;
+        node.classList.remove("completed", "available", "locked");
+        node.classList.add(status);
+    };
 
     // --------------------------------------------------------
-    // Introduction
+    // 1. Introduction (Green if completed, Yellow if available)
     // --------------------------------------------------------
-
     if (completedLessons.includes("introduction")) {
-
-        introNode?.classList.add("completed");
-
-        varsNode?.classList.remove("locked");
-
+        setNodeStatus(introNode, "completed");
+        if (path1) path1.classList.add("completed");
     } else {
-
-        introNode?.classList.remove("completed");
-
-        varsNode?.classList.add("locked");
+        setNodeStatus(introNode, "available");
+        if (path1) path1.classList.remove("completed");
     }
 
-
     // --------------------------------------------------------
-    // Variables
+    // 2. Variables (Green if completed, Yellow if available, Red if locked)
     // --------------------------------------------------------
-
     if (completedLessons.includes("variables")) {
-
-        varsNode?.classList.add("completed");
-
-        typesNode?.classList.remove("locked");
-
+        setNodeStatus(varsNode, "completed");
+        if (path2) path2.classList.add("completed");
+    } else if (completedLessons.includes("introduction")) {
+        setNodeStatus(varsNode, "available");
+        if (path2) path2.classList.remove("completed");
     } else {
-
-        varsNode?.classList.remove("completed");
-
-        typesNode?.classList.add("locked");
+        setNodeStatus(varsNode, "locked");
+        if (path2) path2.classList.remove("completed");
     }
 
-
     // --------------------------------------------------------
-    // Data Types
+    // 3. Data Types (Green if completed, Yellow if available, Red if locked)
     // --------------------------------------------------------
-
     if (completedLessons.includes("dataTypes")) {
-
-        typesNode?.classList.add("completed");
+        setNodeStatus(typesNode, "completed");
+    } else if (completedLessons.includes("variables")) {
+        setNodeStatus(typesNode, "available");
+    } else {
+        setNodeStatus(typesNode, "locked");
     }
+}
+
+if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", updateCourseMapUI);
+} else {
+    updateCourseMapUI();
 }
 
 
@@ -526,7 +675,7 @@ function openLesson(lesson) {
     ) {
 
         alert(
-            "Debes completar la lección de 'Introduction' primero para desbloquear esta."
+            "Debes completar la lección de 'Introducción a Python' primero para desbloquear esta."
         );
 
         return;
@@ -539,7 +688,7 @@ function openLesson(lesson) {
     ) {
 
         alert(
-            "Debes completar la lección de 'Variables' primero para desbloquear esta."
+            "Debes completar la lección de 'Variables en Python' primero para desbloquear esta."
         );
 
         return;
@@ -701,6 +850,9 @@ function startLesson() {
         return;
     }
 
+    if (currentLesson.title) {
+        document.title = `${currentLesson.title} - DuoProg`;
+    }
 
     currentActivityIndex = 0;
 
@@ -740,6 +892,40 @@ function showActivity() {
     if (gameOverScreen) {
 
         gameOverScreen.style.display =
+            "none";
+    }
+
+
+    // Update activity counter
+    const qNum =
+        document.getElementById(
+            "question-number"
+        );
+
+    if (qNum && currentLesson) {
+        qNum.textContent =
+            `Paso ${currentActivityIndex + 1} de ${currentLesson.activities.length}`;
+    }
+
+
+    // Hide matching and code editor containers by default
+    const matchingContainer =
+        document.getElementById(
+            "matching-container"
+        );
+
+    if (matchingContainer) {
+        matchingContainer.style.display =
+            "none";
+    }
+
+    const editor =
+        document.getElementById(
+            "code-editor"
+        );
+
+    if (editor) {
+        editor.style.display =
             "none";
     }
 
@@ -886,6 +1072,25 @@ function createQuestion(questionData) {
 
     selectedAnswer = null;
 
+    const matchingContainer =
+        document.getElementById(
+            "matching-container"
+        );
+
+    if (matchingContainer) {
+        matchingContainer.style.display =
+            "none";
+    }
+
+    const editor =
+        document.getElementById(
+            "code-editor"
+        );
+
+    if (editor) {
+        editor.style.display =
+            "none";
+    }
 
     const checkButton =
         document.querySelector(
@@ -1056,6 +1261,16 @@ function checkAnswer() {
 // ============================================================
 
 function showMatching(activity) {
+
+    const editor =
+        document.getElementById(
+            "code-editor"
+        );
+
+    if (editor) {
+        editor.style.display =
+            "none";
+    }
 
     const codeBlock =
         document.getElementById(
@@ -1545,15 +1760,18 @@ function showCodeExercise(activity) {
                 const userCode =
                     editor.value.trim();
 
+                let isMatch = false;
 
-                const expectedCode =
-                    activity.expected.trim();
+                if (Array.isArray(activity.expected)) {
+                    isMatch = activity.expected.some(
+                        exp => exp.trim() === userCode
+                    );
+                } else if (typeof activity.expected === "string") {
+                    isMatch =
+                        userCode === activity.expected.trim();
+                }
 
-
-                if (
-                    userCode ===
-                    expectedCode
-                ) {
+                if (isMatch) {
 
                     console.log(
                         "Correct!"

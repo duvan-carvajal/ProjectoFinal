@@ -1,0 +1,1 @@
+import{t as e}from"./modulepreload-polyfill-D3Tm_XB5.js";/* empty css              */e((()=>{var e=document.getElementById(`course-search`),t=document.querySelectorAll(`.course-card`);e.addEventListener(`input`,function(){let n=e.value.toLowerCase();t.forEach(e=>{e.textContent.toLowerCase().includes(n)?e.style.display=`flex`:e.style.display=`none`})})}))();

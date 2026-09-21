@@ -1,6 +1,7 @@
 import { auth, db } from '../../firebaseConfig.js';
 import { doc, getDoc } from 'firebase/firestore';
 import cloud from '../../../assets/images/cloud.svg';
+import pythonLogo from '../../../assets/images/python-logo.png';
 import './style.css';
 
 
@@ -184,7 +185,7 @@ export default async function mostrarInicio() {
 
                         <div class="curso-icon">
 
-                            🐍
+                            <img src="${pythonLogo}" alt="Python" class="curso-icon-img">
 
                         </div>
 
