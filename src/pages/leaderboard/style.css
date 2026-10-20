@@ -111,7 +111,7 @@
     font-weight: 700;
     margin: 0 0 8px 0;
     letter-spacing: 0.5px;
-    background: linear-gradient(135deg, #FFFFFF 0%, #CCD9E8 100%);
+    background: linear-gradient(135deg, #161616 0%, #9da3aa 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }

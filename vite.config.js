@@ -6,6 +6,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(__dirname, 'index.html'),
+        kodicode: resolve(__dirname, 'kodicode.html'),
         duoprog: resolve(__dirname, 'duoprog.html'),
         courses: resolve(__dirname, 'courses.html'),
         lesson: resolve(__dirname, 'lesson.html'),
@@ -13,4 +14,3 @@ export default defineConfig({
     }
   }
 });
-

@@ -2,6 +2,7 @@ import { auth, db } from '../../firebaseConfig.js';
 import { doc, getDoc } from 'firebase/firestore';
 import cloud from '../../../assets/images/cloud.svg';
 import pythonLogo from '../../../assets/images/python-logo.png';
+import kodiMascot from '../../../assets/images/kodicode-mascot.png';
 import './style.css';
 
 
@@ -33,25 +34,7 @@ export default async function mostrarInicio() {
     }
 
 
-    app.innerHTML = `
-
-        <div class="inicio">
-
-
-            <section class="welcome-card">
-
-
-                <h1>
-                    Cargando...
-                </h1>
-
-
-            </section>
-
-
-        </div>
-
-    `;
+    
 
 
 

@@ -2,6 +2,12 @@ import { auth, db } from './src/firebaseConfig.js';
 import { onAuthStateChanged } from 'firebase/auth';
 import { doc, getDoc, updateDoc } from 'firebase/firestore';
 
+import mostrarNavbar from './src/componentes/navbar/navbar.js';
+
+if (document.getElementById('navbar')) {
+    mostrarNavbar();
+}
+
 
 // ============================================================
 // GLOBAL VARIABLES
@@ -500,12 +506,12 @@ async function loadProgress(user) {
                 // Save progress to cache
 
                 localStorage.setItem(
-                    `duoprog_completed_${user.uid}`,
+                    `kodicode_completed_${user.uid}`,
                     JSON.stringify(completedLessons)
                 );
 
                 localStorage.setItem(
-                    `duoprog_xp_${user.uid}`,
+                    `kodicode_xp_${user.uid}`,
                     userXP.toString()
                 );
             }
@@ -518,9 +524,7 @@ async function loadProgress(user) {
             );
 
             const cached =
-                localStorage.getItem(
-                    `duoprog_completed_${user.uid}`
-                );
+                (localStorage.getItem(`kodicode_completed_${user.uid}`) || localStorage.getItem(`kodicode_completed_${user.uid}`));
 
             if (cached) {
 
@@ -529,9 +533,7 @@ async function loadProgress(user) {
             }
 
             const cachedXP =
-                localStorage.getItem(
-                    `duoprog_xp_${user.uid}`
-                );
+                (localStorage.getItem(`kodicode_xp_${user.uid}`) || localStorage.getItem(`kodicode_xp_${user.uid}`));
 
             if (cachedXP) {
 
@@ -545,9 +547,7 @@ async function loadProgress(user) {
         // Guest progress
 
         const cached =
-            localStorage.getItem(
-                "duoprog_completed_guest"
-            );
+            (localStorage.getItem("kodicode_completed_guest") || localStorage.getItem("kodicode_completed_guest"));
 
         if (cached) {
 
@@ -556,9 +556,7 @@ async function loadProgress(user) {
         }
 
         const cachedXP =
-            localStorage.getItem(
-                "duoprog_xp_guest"
-            );
+            (localStorage.getItem("kodicode_xp_guest") || localStorage.getItem("kodicode_xp_guest"));
 
         if (cachedXP) {
 
@@ -851,7 +849,7 @@ function startLesson() {
     }
 
     if (currentLesson.title) {
-        document.title = `${currentLesson.title} - DuoProg`;
+        document.title = `${currentLesson.title} - KodiCode`;
     }
 
     currentActivityIndex = 0;
@@ -2070,7 +2068,7 @@ async function completeLesson() {
                 // Update cache
 
                 localStorage.setItem(
-                    `duoprog_completed_${currentUser.uid}`,
+                    `kodicode_completed_${currentUser.uid}`,
                     JSON.stringify(
                         existingCompleted
                     )
@@ -2078,7 +2076,7 @@ async function completeLesson() {
 
 
                 localStorage.setItem(
-                    `duoprog_xp_${currentUser.uid}`,
+                    `kodicode_xp_${currentUser.uid}`,
                     (
                         currentXP + 25
                     ).toString()
@@ -2103,7 +2101,7 @@ async function completeLesson() {
         else {
 
             localStorage.setItem(
-                "duoprog_completed_guest",
+                "kodicode_completed_guest",
                 JSON.stringify(
                     completedLessons
                 )
@@ -2111,7 +2109,7 @@ async function completeLesson() {
 
 
             localStorage.setItem(
-                "duoprog_xp_guest",
+                "kodicode_xp_guest",
                 userXP.toString()
             );
         }

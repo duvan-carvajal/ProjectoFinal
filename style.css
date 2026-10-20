@@ -1247,61 +1247,7 @@ body > h1 {
 }
 
 
-/* =========================================================
-   BOTTOM NAVIGATION
-   ========================================================= */
-
-.bottom-nav {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 500;
-
-    display: flex;
-    justify-content: space-around;
-
-    background: var(--surface);
-    border-top: 2.5px solid var(--border);
-    box-shadow: 0 -3px 0 var(--ink);
-
-    padding: 10px 6px calc(10px + env(safe-area-inset-bottom));
-}
-
-.bottom-nav button {
-    flex: 1;
-    max-width: 120px;
-
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 3px;
-
-    border: none;
-    background: none;
-
-    padding: 6px 4px;
-    border-radius: var(--radius-sm);
-
-    color: var(--ink-soft);
-    font-family: inherit;
-    font-size: 11px;
-    font-weight: 600;
-
-    cursor: pointer;
-    transition: color 0.15s ease, background 0.15s ease;
-}
-
-.bottom-nav button span:first-child {
-    font-size: 20px;
-    line-height: 1;
-}
-
-.bottom-nav button:hover {
-    color: var(--accent);
-    background: var(--accent-soft);
-}
-
+/* Bottom navigation styles are now handled by the unified navbar component */
 
 /* =========================================================
    DASHBOARD-STYLE PIECES (for duoprog.html)

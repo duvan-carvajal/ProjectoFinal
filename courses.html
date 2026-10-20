@@ -1,11 +1,12 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <link rel="icon" type="image/png" href="assets/images/kodicode-mascot.png">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -13,17 +14,19 @@
 
     <link rel="stylesheet" href="style.css">
 
-    <title>Courses</title>
+    <title>Cursos - KodiCode</title>
 
 </head>
 
 <body>
 
+    <div id="navbar"></div>
+
     <main class="courses-page">
 
         <header class="courses-header">
-            <h1>Courses</h1>
-            <p>Choose something new to learn.</p>
+            <h1>Cursos</h1>
+            <p>Elige una nueva habilidad para aprender en KodiCode.</p>
         </header>
 
 
@@ -34,7 +37,7 @@
             <input
                 type="text"
                 id="course-search"
-                placeholder="Search courses..."
+                placeholder="Buscar cursos..."
             >
 
         </div>
@@ -58,10 +61,10 @@
                     <h2>Python Fundamentals</h2>
 
                     <p>
-                        Learn the basics of Python programming.
+                        Aprende los fundamentos de la programación en Python.
                     </p>
 
-                    <span>Beginner</span>
+                    <span>Principiante</span>
 
                 </div>
 
@@ -76,13 +79,13 @@
 
                 <div class="course-info">
 
-                    <h2>Web Development</h2>
+                    <h2>Desarrollo Web</h2>
 
                     <p>
-                        Learn HTML, CSS and JavaScript.
+                        Aprende HTML, CSS y JavaScript moderno.
                     </p>
 
-                    <span>Beginner</span>
+                    <span>Principiante</span>
 
                 </div>
 
@@ -97,13 +100,13 @@
 
                 <div class="course-info">
 
-                    <h2>Databases</h2>
+                    <h2>Bases de Datos</h2>
 
                     <p>
-                        Learn SQL and database fundamentals.
+                        Aprende SQL y fundamentos de bases de datos.
                     </p>
 
-                    <span>Intermediate</span>
+                    <span>Intermedio</span>
 
                 </div>
 
@@ -112,35 +115,6 @@
         </section>
 
     </main>
-
-
-    <!-- BOTTOM NAVBAR -->
-
-    <nav class="bottom-nav">
-
-        <button onclick="window.location.href='index.html'">
-            <span>📚</span>
-            <span>Lessons</span>
-        </button>
-
-        <button onclick="window.location.href='duoprog.html'">
-            <span>📝</span>
-            <span>CRUD</span>
-        </button>
-
-        <button onclick="window.location.href='duoprog.html#leaderboard'">
-            <span>🏆</span>
-            <span>Ranking</span>
-        </button>
-
-        <button onclick="window.location.href='courses.html'">
-            <span>🔍</span>
-            <span>Buscar</span>
-        </button>
-        
-
-    </nav>
-
 
     <script type="module" src="courses.js"></script>
 

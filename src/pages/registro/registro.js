@@ -1,6 +1,7 @@
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { doc, setDoc } from 'firebase/firestore';
 import { auth, db } from '../../firebaseConfig.js';
+import kodiMascot from '../../../assets/images/kodicode-mascot.png';
 import './style.css';
 
 

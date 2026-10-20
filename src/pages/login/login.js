@@ -1,5 +1,6 @@
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../../firebaseConfig.js';
+import kodiMascot from '../../../assets/images/kodicode-mascot.png';
 import './style.css';
 
 
