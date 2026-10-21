@@ -138,7 +138,7 @@ export default function mostrarNavbar() {
     if (btnInicio) btnInicio.onclick = () => navegar("#inicio");
 
     const btnLecciones = document.getElementById("btnLecciones");
-    if (btnLecciones) btnLecciones.onclick = () => navegar("index.html");
+    if (btnLecciones) btnLecciones.onclick = () => navegar("./python.html");
 
     const btnCursos = document.getElementById("btnCursos");
     if (btnCursos) btnCursos.onclick = () => navegar("courses.html");
@@ -151,7 +151,7 @@ export default function mostrarNavbar() {
     if (bottomBtnInicio) bottomBtnInicio.onclick = () => navegar("#inicio");
 
     const bottomBtnLecciones = document.getElementById("bottomBtnLecciones");
-    if (bottomBtnLecciones) bottomBtnLecciones.onclick = () => navegar("index.html");
+    if (bottomBtnLecciones) bottomBtnLecciones.onclick = () => navegar("./python.html");
 
     const bottomBtnCursos = document.getElementById("bottomBtnCursos");
     if (bottomBtnCursos) bottomBtnCursos.onclick = () => navegar("courses.html");
@@ -218,7 +218,7 @@ export default function mostrarNavbar() {
 
         if (path.endsWith("courses.html")) {
             activo = "cursos";
-        } else if (path.endsWith("index.html") || path === "/" || path === "") {
+        } else if (path.endsWith("python.html") || path === "/" || path === "") {
             activo = "lecciones";
         } else {
             // En app (kodicode.html o duoprog.html)
