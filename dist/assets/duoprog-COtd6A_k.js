@@ -134,7 +134,7 @@ import{C as e,E as t,S as n,T as r,_ as i,a,c as o,d as s,f as c,g as l,i as u,l
             </div>
 
 
-        `,document.getElementById(`btnPython`).addEventListener(`click`,()=>{window.location.href=`index.html`})}catch(t){console.error(`❌ Error cargando inicio:`,t),e.innerHTML=`
+        `,document.getElementById(`btnPython`).addEventListener(`click`,()=>{window.location.href=`python.html`})}catch(t){console.error(`❌ Error cargando inicio:`,t),e.innerHTML=`
 
 
             <div class="inicio">

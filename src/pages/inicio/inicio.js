@@ -233,7 +233,7 @@ export default async function mostrarInicio() {
             .addEventListener("click", () => {
 
 
-                window.location.href = "index.html";
+                window.location.href = "python.html";
 
 
             });
