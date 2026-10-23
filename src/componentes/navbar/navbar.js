@@ -35,6 +35,16 @@ function esPaginaApp() {
 function navegar(destino) {
     const path = window.location.pathname.toLowerCase();
 
+    if (!authResuelta) return;
+    
+    if (
+        !auth.currentUser &&
+        destino !== '#login' &&
+        destino !== '#registro'
+    ) {
+        destino = '#login';
+    }
+
     if (destino.startsWith('#')) {
         if (esPaginaApp()) {
             window.location.hash = destino;
