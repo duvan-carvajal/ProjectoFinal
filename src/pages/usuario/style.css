@@ -1,5 +1,12 @@
 /* ===== DuoProg — estilo neobrutalista ===== */
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=DM+Sans:wght@400;500;700&display=swap');
+
+/* Fuentes locales (paquetes @fontsource ya instalados) */
+@import '../../../node_modules/@fontsource/fredoka/500.css';
+@import '../../../node_modules/@fontsource/fredoka/600.css';
+@import '../../../node_modules/@fontsource/fredoka/700.css';
+@import '../../../node_modules/@fontsource/dm-sans/400.css';
+@import '../../../node_modules/@fontsource/dm-sans/500.css';
+@import '../../../node_modules/@fontsource/dm-sans/700.css';
 
 :root{
   --bg: #F6F5FF;

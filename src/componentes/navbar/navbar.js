@@ -1,23 +1,99 @@
 import { auth } from '../../firebaseConfig.js';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import kodiLogo from '../../../assets/images/kodicode-logo.png';
+import iconLogin from '../../../assets/images/icon-login.svg';
+import iconLogout from '../../../assets/images/icon-logout.svg';
+import iconHome from '../../../assets/images/icon-home.svg';
+import iconLessons from '../../../assets/images/icon-lessons.svg';
+import iconCourses from '../../../assets/images/icon-courses.svg';
+import iconRanking from '../../../assets/images/icon-ranking.svg';
+import iconProfile from '../../../assets/images/icon-profile.svg';
 import './style.css';
 
 let authListenerAttached = false;
+let authResuelta = false; // evita el "parpadeo" de Iniciar sesión mientras Firebase restaura la sesión
+
+// Icono de la barra inferior
+const icono = (src) => `<img src="${src}" alt="" width="26" height="26">`;
+
+const DESTINOS = {
+    inicio: '#inicio',
+    lecciones: 'python.html',
+    cursos: 'courses.html',
+    ranking: '#leaderboard',
+    usuario: '#usuario',
+    login: '#login',
+    registro: '#registro'
+};
+
+function esPaginaApp() {
+    const path = window.location.pathname.toLowerCase();
+    return path.endsWith('kodicode.html') || path.endsWith('duoprog.html');
+}
+
+// Navegación universal (SPA + multipágina)
+function navegar(destino) {
+    const path = window.location.pathname.toLowerCase();
+
+    if (destino.startsWith('#')) {
+        if (esPaginaApp()) {
+            window.location.hash = destino;
+        } else {
+            window.location.href = `kodicode.html${destino}`;
+        }
+    } else if (!path.endsWith(destino.toLowerCase())) {
+        window.location.href = destino;
+    }
+}
+
+async function cerrarSesion() {
+    try {
+        await signOut(auth);
+
+        if (esPaginaApp()) {
+            window.location.hash = '#login';
+        }
+    } catch (error) {
+        console.error('Error al cerrar sesión:', error);
+    }
+}
+
+// Pestaña activa (se resalta en la barra inferior y en los botones de cuenta)
+
 
 export default function mostrarNavbar() {
-    let navbar = document.getElementById("navbar");
+    let navbar = document.getElementById('navbar');
 
     if (!navbar) {
-        navbar = document.createElement("div");
-        navbar.id = "navbar";
+        navbar = document.createElement('div');
+        navbar.id = 'navbar';
         document.body.prepend(navbar);
     }
 
     const usuario = auth.currentUser;
-    const nombreUsuario = usuario
-        ? (usuario.displayName || (usuario.email ? usuario.email.split('@')[0] : 'Perfil'))
-        : '';
+
+    // Barra superior: solo cuenta (iniciar sesión / registrarse / cerrar sesión)
+    let acciones = '';
+    if (authResuelta) {
+        acciones = usuario
+            ? `
+                <button class="nav-btn" id="btnCerrarSesion">
+                    <img src="${iconLogout}" alt="" width="22" height="22"> Cerrar sesión
+                </button>
+            `
+            : `
+                <button class="nav-btn" data-nav="login" id="btnNavLogin">
+                    <img src="${iconLogin}" alt="" width="22" height="22"> Iniciar sesión
+                </button>
+                <button class="nav-btn" data-nav="registro" id="btnRegistro">
+                    Registrarse
+                </button>
+            `;
+    }
+
+    // Si no hay sesión, el botón de perfil lleva a iniciar sesión
+    const navPerfil = usuario ? 'usuario' : 'login';
+    const etiquetaPerfil = usuario || !authResuelta ? 'Perfil' : 'Entrar';
 
     navbar.innerHTML = `
         <nav class="navbar">
@@ -25,187 +101,59 @@ export default function mostrarNavbar() {
                 <img src="${kodiLogo}" alt="KodiCode" class="navbar-brand-img">
             </div>
 
-            <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú">
-                <span></span>
-                <span></span>
-                <span></span>
-            </button>
-
-            <div class="navbar-links" id="navbarLinks">
-                <button class="nav-btn" data-nav="inicio" id="btnInicio">
-                    <span>🏠</span> Inicio
-                </button>
-
-                <button class="nav-btn" data-nav="lecciones" id="btnLecciones">
-                    <span>📚</span> Lecciones
-                </button>
-
-                <button class="nav-btn" data-nav="cursos" id="btnCursos">
-                    <span>🔍</span> Cursos
-                </button>
-
-                <button class="nav-btn" data-nav="ranking" id="btnLeaderboard">
-                    <span>🏆</span> Ranking
-                </button>
-
-                ${
-                    usuario
-                        ? `
-                    <button class="profile-btn" data-nav="usuario" id="btnUsuario">
-                        <span>👤</span> ${nombreUsuario}
-                    </button>
-
-                    <button id="btnCerrarSesion">
-                        <span>🚪</span> Cerrar sesión
-                    </button>
-                    `
-                        : `
-                    <button class="nav-btn" data-nav="login" id="btnNavLogin">
-                        Iniciar sesión
-                    </button>
-
-                    <button class="nav-btn" data-nav="registro" id="btnRegistro">
-                        Registrarse
-                    </button>
-                    `
-                }
+            <div class="navbar-actions">
+                ${acciones}
             </div>
         </nav>
 
-        <!-- BARRA DE NAVEGACIÓN MÓVIL (COMPONENTE INTEGRADO) -->
+        <!-- Barra inferior: navegación de la app -->
         <nav class="bottom-nav" id="bottomNav">
-            <button data-nav="inicio" id="bottomBtnInicio">
-                <span>🏠</span>
+            <button data-nav="inicio">
+                ${icono(iconHome)}
                 <span>Inicio</span>
             </button>
 
-            <button data-nav="lecciones" id="bottomBtnLecciones">
-                <span>📚</span>
+            <button data-nav="lecciones">
+                ${icono(iconLessons)}
                 <span>Lecciones</span>
             </button>
 
-            <button data-nav="cursos" id="bottomBtnCursos">
-                <span>🔍</span>
+            <button data-nav="cursos">
+                ${icono(iconCourses)}
                 <span>Cursos</span>
             </button>
 
-            <button data-nav="ranking" id="bottomBtnLeaderboard">
-                <span>🏆</span>
+            <button data-nav="ranking">
+                ${icono(iconRanking)}
                 <span>Ranking</span>
             </button>
 
-            <button data-nav="usuario" id="bottomBtnUsuario">
-                <span>👤</span>
-                <span>${usuario ? 'Perfil' : 'Entrar'}</span>
+            <button data-nav="${navPerfil}">
+                ${icono(iconProfile)}
+                <span>${etiquetaPerfil}</span>
             </button>
         </nav>
     `;
 
-    // --------------------------------------------------------
-    // NAVEGACIÓN UNIVERSAL (SPA + MULTIPÁGINA)
-    // --------------------------------------------------------
-    function navegar(destino) {
-        const path = window.location.pathname.toLowerCase();
-        const isApp = path.endsWith("kodicode.html") || path.endsWith("duoprog.html");
+    // Logo -> inicio
+    document.getElementById('navLogo').onclick = () => navegar(DESTINOS.inicio);
 
-        // Cerrar menú móvil al navegar
-        const navbarLinks = document.getElementById("navbarLinks");
-        const menuToggle = document.getElementById("menuToggle");
-        if (navbarLinks) navbarLinks.classList.remove("show");
-        if (menuToggle) menuToggle.classList.remove("open");
+    // Todos los botones con data-nav navegan a su destino
+    navbar.querySelectorAll('[data-nav]').forEach((btn) => {
+        btn.onclick = () => navegar(DESTINOS[btn.dataset.nav]);
+    });
 
-        if (destino.startsWith("#")) {
-            if (isApp) {
-                window.location.hash = destino;
-            } else {
-                window.location.href = `kodicode.html${destino}`;
-            }
-        } else {
-            if (!path.endsWith(destino.toLowerCase())) {
-                window.location.href = destino;
-            }
-        }
-    }
+    
 
     // Logo Click
-    const navLogo = document.getElementById("navLogo");
-    if (navLogo) {
-        navLogo.onclick = () => navegar("#inicio");
-    }
-
-    // Enlaces Top Navbar
-    const btnInicio = document.getElementById("btnInicio");
-    if (btnInicio) btnInicio.onclick = () => navegar("#inicio");
-
-    const btnLecciones = document.getElementById("btnLecciones");
-    if (btnLecciones) btnLecciones.onclick = () => navegar("/python.html");
-
-    const btnCursos = document.getElementById("btnCursos");
-    if (btnCursos) btnCursos.onclick = () => navegar("courses.html");
-
-    const btnLeaderboard = document.getElementById("btnLeaderboard");
-    if (btnLeaderboard) btnLeaderboard.onclick = () => navegar("#leaderboard");
-
-    // Enlaces Bottom Nav (Móvil)
-    const bottomBtnInicio = document.getElementById("bottomBtnInicio");
-    if (bottomBtnInicio) bottomBtnInicio.onclick = () => navegar("#inicio");
-
-    const bottomBtnLecciones = document.getElementById("bottomBtnLecciones");
-    if (bottomBtnLecciones) bottomBtnLecciones.onclick = () => navegar("/python.html");
-
-    const bottomBtnCursos = document.getElementById("bottomBtnCursos");
-    if (bottomBtnCursos) bottomBtnCursos.onclick = () => navegar("courses.html");
-
-    const bottomBtnLeaderboard = document.getElementById("bottomBtnLeaderboard");
-    if (bottomBtnLeaderboard) bottomBtnLeaderboard.onclick = () => navegar("#leaderboard");
-
-    const bottomBtnUsuario = document.getElementById("bottomBtnUsuario");
-    if (bottomBtnUsuario) {
-        bottomBtnUsuario.onclick = () => navegar(usuario ? "#usuario" : "#login");
-    }
-
+    
     // Usuario / Autenticación
-    if (usuario) {
-        const btnUsuario = document.getElementById("btnUsuario");
-        if (btnUsuario) btnUsuario.onclick = () => navegar("#usuario");
+    const btnCerrarSesion = document.getElementById('btnCerrarSesion');
 
-        const btnCerrarSesion = document.getElementById("btnCerrarSesion");
-        if (btnCerrarSesion) {
-            btnCerrarSesion.onclick = async () => {
-                await auth.signOut();
-                const path = window.location.pathname.toLowerCase();
-                if (path.endsWith("kodicode.html") || path.endsWith("duoprog.html")) {
-                    window.location.hash = "#login";
-                }
-                window.location.reload();
-            };
-        }
-    } else {
-        const btnNavLogin = document.getElementById("btnNavLogin");
-        if (btnNavLogin) btnNavLogin.onclick = () => navegar("#login");
-
-        const btnRegistro = document.getElementById("btnRegistro");
-        if (btnRegistro) btnRegistro.onclick = () => navegar("#registro");
-    }
-
-    // Menú Hamburguesa Móvil
-    const menuToggle = document.getElementById("menuToggle");
-    const navbarLinks = document.getElementById("navbarLinks");
-    if (menuToggle && navbarLinks) {
-        menuToggle.onclick = (e) => {
-            e.stopPropagation();
-            navbarLinks.classList.toggle("show");
-            menuToggle.classList.toggle("open");
-        };
-
-        // Cerrar al hacer clic afuera
-        document.addEventListener("click", (e) => {
-            if (!navbar.contains(e.target)) {
-                navbarLinks.classList.remove("show");
-                menuToggle.classList.remove("open");
-            }
-        });
-    }
+if (btnCerrarSesion) {
+    btnCerrarSesion.onclick = cerrarSesion;
+}
+    
 
     // --------------------------------------------------------
     // PESTAÑA ACTIVA
@@ -229,7 +177,7 @@ export default function mostrarNavbar() {
             else activo = "inicio";
         }
 
-        document.querySelectorAll("[data-nav]").forEach((elem) => {
+        navbar.querySelectorAll("[data-nav]").forEach((elem) => {
             if (elem.dataset.nav === activo) {
                 elem.classList.add("active");
             } else {
@@ -240,12 +188,12 @@ export default function mostrarNavbar() {
 
     actualizarActivo();
 
-    window.addEventListener("hashchange", actualizarActivo);
-
-    // Escuchador de autenticación para recargar la barra reactivamente
+    // Estos listeners se registran una sola vez (antes se acumulaban en cada re-render)
     if (!authListenerAttached) {
         authListenerAttached = true;
+        window.addEventListener('hashchange', actualizarActivo);
         onAuthStateChanged(auth, () => {
+            authResuelta = true;
             mostrarNavbar();
         });
     }
