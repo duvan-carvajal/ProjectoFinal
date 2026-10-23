@@ -1,1 +1,0 @@
-import{T as e,n as t,t as n}from"./navbar-DINmac7T.js";/* empty css              */e((()=>{n(),t();var e=document.getElementById(`course-search`),r=document.querySelectorAll(`.course-card`);e&&e.addEventListener(`input`,function(){let t=e.value.toLowerCase();r.forEach(e=>{e.textContent.toLowerCase().includes(t)?e.style.display=`flex`:e.style.display=`none`})})}))();

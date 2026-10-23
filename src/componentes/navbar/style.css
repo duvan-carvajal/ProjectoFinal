@@ -1,5 +1,6 @@
 /* ===== KodiCode — Estilo Neobrutalista Navbar Component ===== */
-@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=DM+Sans:wght@400;500;600;700&display=swap');
+
+/* La fuente Fredoka la carga el styles.css principal de la app. */
 
 :root {
   --bg: #F6F5FF;
@@ -23,10 +24,15 @@
   width: 100%;
 }
 
+/* =========================================================
+   BARRA SUPERIOR: logo + acciones de cuenta
+   ========================================================= */
+
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 8px;
   background: var(--paper);
   border-bottom: 2.5px solid var(--ink);
   box-shadow: 0 3px 0 var(--ink);
@@ -57,14 +63,14 @@
   display: block;
 }
 
-/* Links Container */
-.navbar-links {
+.navbar-actions {
   display: flex;
   align-items: center;
   gap: 8px;
+  margin-left: auto;
 }
 
-.navbar-links button,
+.navbar-actions button,
 .nav-btn {
   font-family: 'Fredoka', sans-serif;
   font-weight: 600;
@@ -78,17 +84,18 @@
   display: inline-flex;
   align-items: center;
   gap: 6px;
+  white-space: nowrap;
   transition: background 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
   user-select: none;
 }
 
-.navbar-links button:hover {
+.navbar-actions button:hover {
   background: var(--bg-deep);
   border-color: rgba(21, 19, 28, 0.12);
 }
 
-/* Active tab = Sticker neobrutalista */
-.navbar-links button.active {
+/* Botón activo (ej. estás en #login) = sticker neobrutalista */
+.navbar-actions button.active {
   background: var(--yellow);
   color: var(--ink);
   border: 2px solid var(--ink);
@@ -97,47 +104,34 @@
   font-weight: 700;
 }
 
-.navbar-links button.active:hover {
+.navbar-actions button.active:hover {
   background: var(--yellow);
 }
 
-/* Profile button */
-.navbar-links .profile-btn {
-  border: 2px solid var(--ink);
-  border-radius: 12px;
-  background: var(--violet-soft);
-  color: var(--violet);
-  box-shadow: 2px 2px 0 var(--ink);
+.navbar-actions button img {
+  width: 22px;
+  height: 22px;
+  display: block;
+  pointer-events: none;
 }
 
-.navbar-links .profile-btn:hover {
-  background: #E4DEFF;
-  transform: translate(-1px, -1px);
-  box-shadow: 3px 3px 0 var(--ink);
-}
-
-.navbar-links .profile-btn.active {
-  background: var(--yellow);
-  color: var(--ink);
-}
-
-/* Logout button */
-.navbar-links #btnCerrarSesion {
+/* Cerrar sesión */
+.navbar-actions #btnCerrarSesion {
   color: var(--red);
 }
 
-.navbar-links #btnCerrarSesion:hover {
+.navbar-actions #btnCerrarSesion:hover {
   background: #FDEBEC;
   border-color: var(--red);
 }
 
-/* Login button */
-.navbar-links #btnNavLogin {
+/* Iniciar sesión */
+.navbar-actions #btnNavLogin {
   color: var(--ink);
 }
 
-/* Register CTA */
-.navbar-links #btnRegistro {
+/* Registrarse (CTA) */
+.navbar-actions #btnRegistro {
   background: var(--violet);
   color: #FFFFFF;
   border: 2.5px solid var(--ink);
@@ -145,65 +139,25 @@
   box-shadow: 3px 3px 0 var(--ink);
 }
 
-.navbar-links #btnRegistro:hover {
+.navbar-actions #btnRegistro:hover {
   background: var(--violet);
   filter: brightness(1.08);
   transform: translate(-1.5px, -1.5px);
   box-shadow: 4.5px 4.5px 0 var(--ink);
 }
 
-.navbar-links #btnRegistro:active {
+.navbar-actions #btnRegistro:active {
   box-shadow: 1px 1px 0 var(--ink);
   transform: translate(2px, 2px);
 }
 
-/* Hamburger toggle button */
-.menu-toggle {
-  display: none;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 4.5px;
-  width: 40px;
-  height: 40px;
-  background: var(--paper);
-  border: 2.5px solid var(--ink);
-  border-radius: 12px;
-  box-shadow: 2.5px 2.5px 0 var(--ink);
-  cursor: pointer;
-  padding: 0;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
-}
-
-.menu-toggle:active {
-  transform: translate(1px, 1px);
-  box-shadow: 1.5px 1.5px 0 var(--ink);
-}
-
-.menu-toggle span {
-  display: block;
-  width: 20px;
-  height: 2.5px;
-  background: var(--ink);
-  border-radius: 2px;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.menu-toggle.open span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-
-.menu-toggle.open span:nth-child(2) {
-  opacity: 0;
-}
-
-.menu-toggle.open span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
 /* =========================================================
-   MOBILE BOTTOM NAVIGATION (Shared Component)
+   BARRA INFERIOR: navegación de la app (todos los tamaños)
    ========================================================= */
+
+body {
+  padding-bottom: calc(74px + env(safe-area-inset-bottom, 0px)) !important;
+}
 
 .bottom-nav {
   position: fixed;
@@ -211,7 +165,7 @@
   right: 0;
   bottom: 0;
   z-index: 850;
-  display: none;
+  display: flex;
   justify-content: space-around;
   align-items: center;
   background: var(--paper);
@@ -242,9 +196,11 @@
   transition: all 0.15s ease;
 }
 
-.bottom-nav button span:first-child {
-  font-size: 20px;
-  line-height: 1;
+.bottom-nav button img {
+  width: 26px;
+  height: 26px;
+  display: block;
+  pointer-events: none;
 }
 
 .bottom-nav button:hover {
@@ -261,23 +217,29 @@
   font-weight: 700;
 }
 
+/* En pantallas grandes la barra se centra como un "dock" en vez de ocupar todo el ancho */
+@media (min-width: 769px) {
+  .bottom-nav {
+    left: 50%;
+    right: auto;
+    width: 100%;
+    max-width: 520px;
+    transform: translateX(-50%);
+    border: 2.5px solid var(--ink);
+    border-bottom: none;
+    border-radius: 18px 18px 0 0;
+  }
+
+  .bottom-nav button {
+    max-width: 96px;
+  }
+}
+
 /* =========================================================
-   RESPONSIVE (Max-width: 768px)
+   RESPONSIVE
    ========================================================= */
 
 @media (max-width: 768px) {
-  body {
-    padding-bottom: 74px !important;
-  }
-
-  .bottom-nav {
-    display: flex !important;
-  }
-
-  .menu-toggle {
-    display: flex;
-  }
-
   .navbar {
     padding: 8px 16px;
   }
@@ -287,51 +249,42 @@
     max-width: 145px;
   }
 
-  /* Desktop links hidden in navbar bar, accessible via drawer dropdown */
-  .navbar-links {
-    display: none;
-    position: absolute;
-    top: calc(100% + 8px);
-    right: 14px;
-    left: 14px;
-    flex-direction: column;
-    align-items: stretch;
-    background: var(--paper);
-    border: 2.5px solid var(--ink);
-    border-radius: 18px;
-    box-shadow: 6px 6px 0 var(--ink);
-    padding: 12px;
-    gap: 8px;
-    z-index: 950;
-  }
-
-  .navbar-links.show {
-    display: flex;
-  }
-
-  .navbar-links button {
-    width: 100%;
-    justify-content: flex-start;
-    padding: 10px 14px;
-    font-size: 15px;
-  }
-
-  .navbar-links button.active {
+  .navbar-actions button.active {
     transform: none;
   }
 }
 
-@media (max-width: 480px) {
+/* Celulares angostos: logo y botones más compactos para que quepan en una fila */
+@media (max-width: 420px) {
+  .navbar {
+    padding: 8px 12px;
+  }
+
   .navbar-brand-img {
-    height: 32px;
-    max-width: 128px;
+    height: 28px;
+    max-width: 100px;
+  }
+
+  .navbar-actions {
+    gap: 6px;
+  }
+
+  .navbar-actions button,
+  .nav-btn {
+    font-size: 12.5px;
+    padding: 6px 9px;
+  }
+
+  /* En angosto, Iniciar sesión + Registrarse no caben con icono */
+  .navbar-actions #btnNavLogin img {
+    display: none;
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .navbar-links #btnRegistro,
+  .navbar-actions #btnRegistro,
   .navbar-logo,
-  .navbar-links button.active,
+  .navbar-actions button.active,
   .bottom-nav button.active {
     transition: none;
     transform: none;
