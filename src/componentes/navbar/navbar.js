@@ -1,5 +1,5 @@
 import { auth } from '../../firebaseConfig.js';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signOut } from 'firebase/auth';
 import kodiLogo from '../../../assets/images/kodicode-logo.png';
 import iconLogin from '../../../assets/images/icon-login.svg';
 import iconLogout from '../../../assets/images/icon-logout.svg';
@@ -18,7 +18,7 @@ const icono = (src) => `<img src="${src}" alt="" width="26" height="26">`;
 
 const DESTINOS = {
     inicio: '#inicio',
-    lecciones: 'index.html',
+    lecciones: 'python.html',
     cursos: 'courses.html',
     ranking: '#leaderboard',
     usuario: '#usuario',
@@ -47,38 +47,19 @@ function navegar(destino) {
 }
 
 async function cerrarSesion() {
-    await auth.signOut();
-    if (esPaginaApp()) {
-        window.location.hash = '#login';
+    try {
+        await signOut(auth);
+
+        if (esPaginaApp()) {
+            window.location.hash = '#login';
+        }
+    } catch (error) {
+        console.error('Error al cerrar sesión:', error);
     }
-    window.location.reload();
 }
 
 // Pestaña activa (se resalta en la barra inferior y en los botones de cuenta)
-function actualizarActivo() {
-    const path = window.location.pathname.toLowerCase();
-    const hash = window.location.hash.toLowerCase();
 
-    let activo = 'inicio';
-
-    if (path.endsWith('courses.html')) {
-        activo = 'cursos';
-    } else if (path.endsWith('index.html') || path === '/' || path === '') {
-        activo = 'lecciones';
-    } else if (hash === '#leaderboard') {
-        activo = 'ranking';
-    } else if (hash === '#usuario') {
-        activo = 'usuario';
-    } else if (hash === '#login') {
-        activo = 'login';
-    } else if (hash === '#registro') {
-        activo = 'registro';
-    }
-
-    document.querySelectorAll('[data-nav]').forEach((elem) => {
-        elem.classList.toggle('active', elem.dataset.nav === activo);
-    });
-}
 
 export default function mostrarNavbar() {
     let navbar = document.getElementById('navbar');
@@ -162,8 +143,48 @@ export default function mostrarNavbar() {
         btn.onclick = () => navegar(DESTINOS[btn.dataset.nav]);
     });
 
+    
+
+    // Logo Click
+    
+    // Usuario / Autenticación
     const btnCerrarSesion = document.getElementById('btnCerrarSesion');
-    if (btnCerrarSesion) btnCerrarSesion.onclick = cerrarSesion;
+
+if (btnCerrarSesion) {
+    btnCerrarSesion.onclick = cerrarSesion;
+}
+    
+
+    // --------------------------------------------------------
+    // PESTAÑA ACTIVA
+    // --------------------------------------------------------
+    function actualizarActivo() {
+        const path = window.location.pathname.toLowerCase();
+        const hash = window.location.hash.toLowerCase();
+
+        let activo = "inicio";
+
+        if (path.endsWith("courses.html")) {
+            activo = "cursos";
+        } else if (path.endsWith("python.html")) {
+            activo = "lecciones";
+        } else {
+            // En app (kodicode.html o duoprog.html)
+            if (hash === "#leaderboard") activo = "ranking";
+            else if (hash === "#usuario") activo = "usuario";
+            else if (hash === "#login") activo = "login";
+            else if (hash === "#registro") activo = "registro";
+            else activo = "inicio";
+        }
+
+        navbar.querySelectorAll("[data-nav]").forEach((elem) => {
+            if (elem.dataset.nav === activo) {
+                elem.classList.add("active");
+            } else {
+                elem.classList.remove("active");
+            }
+        });
+    }
 
     actualizarActivo();
 
